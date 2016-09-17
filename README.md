@@ -20,3 +20,5 @@ Capstone project for Android Developer Nanodegree from Udacity&amp;Google
   
   * The app will show statistics and graphs for incomes and expenses.
 
+
+###See Capstone_Stage1.pdf file for more information.
