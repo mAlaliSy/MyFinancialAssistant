@@ -1,3 +1,29 @@
 <resources>
-    <string name="app_name">MyFinancialAssistant</string>
+    <string name="app_name">My Financial Assistant</string>
+
+    <string name="overview">Overview</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="months_incomes">Month\'s Incomes</string>
+    <string name="months_expenses">Month\'s Expenses</string>
+    <string name="months_net">Month\'s Net</string>
+
+    <!--ADD INCOME-->
+    <string name="add_income">Add Income</string>
+
+    <string name="source">Source</string>
+    <string name="amount">Amount</string>
+    <string name="date">Date</string>
+
+    <string name="add">Add</string>
+
+    <!--ADD EXPENSE-->
+
+    <string name="add_expense">Add Expense</string>
+
+    <string name="category">Category</string>
+
+    <!--HISTORY-->
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+
 </resources>

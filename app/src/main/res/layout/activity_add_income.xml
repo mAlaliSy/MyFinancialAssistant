@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_add_income"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shamdroid.myfinancialassistant.UI.AddIncomeActivity">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="0dp"
+        android:layout_marginTop="@dimen/sectionMargin">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="2"
+            android:clipToPadding="true"
+            android:paddingBottom="@dimen/cardPadding"
+            android:paddingTop="@dimen/cardPadding">
+
+            <TextView
+                android:text="@string/source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                android:padding="@dimen/textItemPadding"
+                android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                style="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner2"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin" />
+
+            <TextView
+                android:text="@string/amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                android:padding="@dimen/textItemPadding"
+                android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                style="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="0.0$"
+                android:ems="10"
+                android:id="@+id/editText"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="@string/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                android:padding="@dimen/textItemPadding"
+                android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                style="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin">
+
+                <TextView
+                    android:text="@string/months_net"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                    android:padding="@dimen/textItemPadding"
+                    android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                    style="@style/Base.TextAppearance.AppCompat.Medium"
+                    android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_event_black_24dp"
+                    android:id="@+id/imageButton2"
+                    android:layout_weight="1"
+                    style="Widget.AppCompat.ImageButton"
+                    android:background="@android:color/transparent"
+                    android:tint="@color/colorAccent" />
+
+            </LinearLayout>
+
+        </GridLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <Button
+        android:text="@string/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/sectionMargin"
+        android:textColor="@android:color/white"
+        style="Widget.AppCompat.Button.Colored"
+        android:backgroundTint="@color/colorAccent"
+        android:paddingRight="@dimen/buttonPaddingHorizontal"
+        android:paddingLeft="@dimen/buttonPaddingHorizontal"
+        android:textAllCaps="false" />
+</LinearLayout>
