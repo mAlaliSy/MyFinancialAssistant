@@ -11,4 +11,6 @@
 
     <dimen name="cardPadding">8dp</dimen>
     <dimen name="buttonPaddingHorizontal">24dp</dimen>
+
+    <dimen name="btnWidth">256dp</dimen>
 </resources>

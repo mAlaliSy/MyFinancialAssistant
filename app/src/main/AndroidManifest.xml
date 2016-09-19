@@ -21,7 +21,9 @@
         <activity
             android:name=".UI.AddExpenseActivity"
             android:label="@string/add_expense" />
-        <activity android:name=".UI.HistoryActivity"></activity>
+        <activity android:name=".UI.HistoryActivity" />
+        <activity android:name=".UI.SignInActivity"
+            android:theme="@style/NoActionBar"></activity>
     </application>
 
 </manifest>
