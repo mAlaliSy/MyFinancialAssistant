@@ -12,18 +12,22 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <categorySource android:name="android.intent.categorySource.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.AddIncomeActivity"
-            android:label="@string/add_income" />
-        <activity
-            android:name=".UI.AddExpenseActivity"
+            android:name=".UI.AddEditTransactionActivity"
             android:label="@string/add_expense" />
         <activity android:name=".UI.HistoryActivity" />
-        <activity android:name=".UI.SignInActivity"
-            android:theme="@style/NoActionBar"></activity>
+        <activity
+            android:name=".UI.SignInActivity"
+            android:theme="@style/NoActionBar" />
+
+        <provider
+            android:name=".data.FinancialProvider"
+            android:authorities="com.shamdroid.myfinancialassistant"
+            android:enabled="true"
+            android:exported="false"/>
     </application>
 
 </manifest>

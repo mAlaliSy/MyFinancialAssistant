@@ -31,12 +31,4 @@
         android:textColor="@android:color/white"
         style="@style/Base.TextAppearance.AppCompat.Large" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app2:srcCompat="@drawable/common_google_signin_btn_icon_dark_disabled"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="47dp"
-        android:id="@+id/imageView" />
 </RelativeLayout>

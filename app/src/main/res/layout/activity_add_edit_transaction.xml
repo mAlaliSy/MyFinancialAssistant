@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_income"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.shamdroid.myfinancialassistant.UI.AddEditTransactionActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sectionMargin"
+                app:cardCornerRadius="0dp">
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="true"
+                    android:columnCount="2"
+                    android:paddingBottom="@dimen/cardPadding"
+                    android:paddingTop="@dimen/cardPadding">
+
+                    <TextView
+                        android:id="@+id/txtCatSrc"
+                        style="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_column="0"
+                        android:layout_marginBottom="@dimen/textTitlePadding"
+                        android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                        android:layout_marginTop="@dimen/textTitlePadding"
+                        android:layout_row="3"
+                        android:padding="@dimen/textItemPadding" />
+
+                    <Spinner
+                        android:id="@+id/spinCat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="@dimen/textTitlePadding"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="@dimen/textTitlePadding" />
+
+                    <TextView
+                        style="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/textTitlePadding"
+                        android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                        android:layout_marginTop="@dimen/textTitlePadding"
+                        android:padding="@dimen/textItemPadding"
+                        android:text="@string/amount" />
+
+                    <EditText
+                        android:id="@+id/etxtAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="@dimen/textTitlePadding"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="@dimen/textTitlePadding"
+                        android:ems="10"
+                        android:inputType="numberDecimal"
+                        android:text="@string/zeroDollar"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        style="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/textTitlePadding"
+                        android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                        android:layout_marginTop="@dimen/textTitlePadding"
+                        android:padding="@dimen/textItemPadding"
+                        android:text="@string/date" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_marginBottom="@dimen/textTitlePadding"
+                        android:layout_marginTop="@dimen/textTitlePadding"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/activity_horizontal_margin"
+                        android:paddingRight="@dimen/activity_horizontal_margin">
+
+                        <TextView
+                            android:id="@+id/txtSelectedDate"
+                            style="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                            android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                            android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                            android:layout_weight="1"
+                            android:padding="@dimen/textItemPadding"
+                            android:text="@string/months_net" />
+
+                        <ImageButton
+                            android:id="@+id/ibtnSelectDate"
+                            style="Widget.AppCompat.ImageButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_event_black_24dp"
+                            android:tint="@color/colorAccent" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/textTitlePadding"
+                        android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                        android:layout_marginTop="@dimen/textTitlePadding"
+                        android:padding="@dimen/textItemPadding"
+                        android:text="@string/note" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/textTitlePadding"
+                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="@dimen/textTitlePadding"
+                        android:ems="10"
+                        android:inputType="textMultiLine"
+                        android:layout_gravity="end"
+                        android:id="@+id/etxtNote" />
+
+                </GridLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/btnAdd"
+                style="Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/sectionMargin"
+                android:backgroundTint="@color/colorAccent"
+                android:paddingLeft="@dimen/buttonPaddingHorizontal"
+                android:paddingRight="@dimen/buttonPaddingHorizontal"
+                android:text="@string/add"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

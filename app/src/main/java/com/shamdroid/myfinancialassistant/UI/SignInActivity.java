@@ -29,8 +29,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     @BindView(R.id.btnSignIn)
     SignInButton btnSignIn;
 
-    @BindView(R.id.imageView)
-    ImageView imageView;
 
     public final int REQUEST_CODE = 0;
     GoogleApiClient googleApiClient;
@@ -100,7 +98,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             SharedPreferencesManager.setName(this,googleSignInAccount.getDisplayName());
 
             // Sync with Firebase
-            
+
 
             finish();
             startActivity(new Intent(SignInActivity.this,MainActivity.class));

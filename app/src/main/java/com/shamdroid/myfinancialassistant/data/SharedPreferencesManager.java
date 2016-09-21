@@ -14,6 +14,7 @@ public class SharedPreferencesManager {
     public static final String IS_LOGGED_IN_KEY = "is_logged_in";
     public static final String EMAIL_KEY = "email";
     public static final String NAME_KEY = "name";
+    public static final String BALANCE_KEY="balance";
 
     private static SharedPreferences sharedPreferences;
 
@@ -50,9 +51,16 @@ public class SharedPreferencesManager {
     }
 
     public static void setName(Context context,String name){
-        getEditor(context).putString(NAME_KEY,name);
+        getEditor(context).putString(NAME_KEY,name).apply();
     }
 
+    public static void setBalance(Context context,float balance){
+        getEditor(context).putFloat(BALANCE_KEY,balance).apply();
+    }
+
+    public static float getBalance(Context context){
+        return getSharedPreferences(context).getFloat(BALANCE_KEY,0.0f);
+    }
 
 
 }

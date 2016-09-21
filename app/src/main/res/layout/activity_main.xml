@@ -18,8 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:columnCount="2"
-            android:paddingBottom="@dimen/cardPadding"
-            android:paddingTop="@dimen/cardPadding">
+            android:paddingTop="@dimen/cardPadding"
+            android:paddingBottom="@dimen/cardPadding">
 
             <TextView
                 android:text="@string/overview"
@@ -52,7 +52,8 @@
                 android:padding="@dimen/textItemPadding"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:textColor="@color/colorPrimary"
-                style="@style/Base.TextAppearance.AppCompat.Medium" />
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:id="@+id/txtBalance" />
             <TextView
                 android:text="@string/months_incomes"
                 android:layout_width="wrap_content"
@@ -71,7 +72,8 @@
                 android:padding="@dimen/textItemPadding"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:textColor="@color/green"
-                style="@style/Base.TextAppearance.AppCompat.Medium" />
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:id="@+id/txtMonthIncomes" />
             <TextView
                 android:text="@string/months_expenses"
                 android:layout_width="wrap_content"
@@ -90,7 +92,8 @@
                 android:padding="@dimen/textItemPadding"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:textColor="@color/red"
-                style="@style/Base.TextAppearance.AppCompat.Medium" />
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:id="@+id/txtMonthExpenses" />
             <TextView
                 android:text="@string/months_net"
                 android:layout_width="wrap_content"
@@ -104,7 +107,7 @@
                 android:text="500$"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView3"
+                android:id="@+id/txtMonthNet"
                 android:layout_gravity="end"
                 android:layout_marginEnd="@dimen/activity_horizontal_margin"
                 android:padding="@dimen/textItemPadding"

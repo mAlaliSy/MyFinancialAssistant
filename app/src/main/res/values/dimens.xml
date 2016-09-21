@@ -9,7 +9,7 @@
     <dimen name="textItemPadding">4dp</dimen>
 
 
-    <dimen name="cardPadding">8dp</dimen>
+    <dimen name="cardPadding">16dp</dimen>
     <dimen name="buttonPaddingHorizontal">24dp</dimen>
 
     <dimen name="btnWidth">256dp</dimen>
