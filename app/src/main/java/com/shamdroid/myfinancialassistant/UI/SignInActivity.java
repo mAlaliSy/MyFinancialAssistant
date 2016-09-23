@@ -89,7 +89,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
     }
 
     private void handleGoogleSignInResult(GoogleSignInResult googleSignInResult) {
-
         if (googleSignInResult.isSuccess()){
             GoogleSignInAccount googleSignInAccount = googleSignInResult.getSignInAccount();
 

@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
+import android.util.Log;
 
 public class FinancialProvider extends ContentProvider {
     public FinancialProvider() {
@@ -51,20 +52,53 @@ public class FinancialProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
 
+        int returnedId = -1;
+
         switch (uriMatcher.match(uri)) {
 
             case CATEGORY_CODE:
-                return sqLiteHelper.getWritableDatabase().delete(FinancialContract.CategoryEntry.CATEGORIES_TABLE, selection, selectionArgs);
+                returnedId = sqLiteHelper.getWritableDatabase().delete(FinancialContract.CategoryEntry.CATEGORIES_TABLE,
+                        selection, selectionArgs);
+                break;
+
+            case CATEGORY_ID_CODE :
+                returnedId = sqLiteHelper.getWritableDatabase()
+                        .delete(FinancialContract.CategoryEntry.CATEGORIES_TABLE,
+                                FinancialContract.CategoryEntry.ID + " =? ",
+                                new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
+
+                break;
 
             case SOURCE_CODE:
-                return sqLiteHelper.getWritableDatabase().delete(FinancialContract.SourceEntry.SOURCES_TABLE, selection, selectionArgs);
+                returnedId = sqLiteHelper.getWritableDatabase().delete(FinancialContract.SourceEntry.SOURCES_TABLE,
+                        selection, selectionArgs);
+                break;
+            case SOURCE_ID_CODE :
+                returnedId = sqLiteHelper.getWritableDatabase()
+                        .delete(FinancialContract.SourceEntry.SOURCES_TABLE,
+                                FinancialContract.SourceEntry.ID + " =? ",
+                                new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
 
+                break;
             case TRANSACTION_CODE:
-                return sqLiteHelper.getWritableDatabase().delete(FinancialContract.SourceEntry.SOURCES_TABLE, selection, selectionArgs);
+                returnedId = sqLiteHelper.getWritableDatabase().delete(FinancialContract.TransactionEntry.TRANSACTIONS_TABLE,
+                        selection, selectionArgs);
+                break;
+            case TRANSACTION_ID_CODE:
+                returnedId = sqLiteHelper.getWritableDatabase()
+                        .delete(FinancialContract.TransactionEntry.TRANSACTIONS_TABLE,
+                                FinancialContract.TransactionEntry.ID + " =? ",
+                                new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
+                break;
 
             default:
                 throw new UnsupportedOperationException("Not yet implemented");
         }
+
+
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        return returnedId;
     }
 
     @Override
@@ -200,7 +234,7 @@ public class FinancialProvider extends ContentProvider {
                       String[] selectionArgs) {
         SQLiteDatabase sqLiteDatabase = sqLiteHelper.getWritableDatabase();
 
-        switch (uriMatcher.match(uri)){
+        switch (uriMatcher.match(uri)) {
 
             case CATEGORY_CODE:
                 return sqLiteDatabase.update(FinancialContract.CategoryEntry.CATEGORIES_TABLE,

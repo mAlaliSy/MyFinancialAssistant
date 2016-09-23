@@ -12,7 +12,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <categorySource android:name="android.intent.categorySource.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity

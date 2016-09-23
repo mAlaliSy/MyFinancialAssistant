@@ -40,8 +40,15 @@
     <!--HISTORY-->
     <string name="income">Income</string>
     <string name="expense">Expense</string>
+
+    <string name="noTransactions">No Transactions Found ! </string>
+
     <string name="emptyString">Please enter a valid value.</string>
 
+
+    <string name="deleteMessage">Are you sure you want to delete this transaction ? \n This will remove all its effects.</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
 
     <string-array name="defaultCategories">
         <item>Home</item>

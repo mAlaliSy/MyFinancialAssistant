@@ -1,10 +1,13 @@
 package com.shamdroid.myfinancialassistant.Models;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.shamdroid.myfinancialassistant.data.FinancialContract;
+
+import java.util.Calendar;
 
 /**
  * Created by mohammad on 20/09/16.
@@ -13,17 +16,15 @@ import com.shamdroid.myfinancialassistant.data.FinancialContract;
 public class Transaction implements Parcelable {
 
 
-    public final static int INCOME_TYPE=0;
-    public final static int EXPENSE_TYPE=1;
+    public final static int INCOME_TYPE = 0;
+    public final static int EXPENSE_TYPE = 1;
 
     int id;
     int type;
     int categorySourceId;
     float amount;
-    int day,month,year;
-
     String note;
-
+    int day, month, year;
 
 
     public Transaction(int id, int type, int categorySourceId, float amount, String note, int day, int month, int year) {
@@ -42,6 +43,7 @@ public class Transaction implements Parcelable {
         type = in.readInt();
         categorySourceId = in.readInt();
         amount = in.readFloat();
+        note = in.readString();
         day = in.readInt();
         month = in.readInt();
         year = in.readInt();
@@ -59,14 +61,36 @@ public class Transaction implements Parcelable {
         }
     };
 
-    public ContentValues toContentValues(){
+    public static Transaction fromCursor(Cursor cursor) {
+
+        int id = cursor.getInt(FinancialContract.TransactionEntry.ID_INDEX);
+        int type = cursor.getInt(FinancialContract.TransactionEntry.TYPE_INDEX);
+        int catSrcId = cursor.getInt(FinancialContract.TransactionEntry.SOURCE_CATEFORY_INDEX);
+        float amount = cursor.getFloat(FinancialContract.TransactionEntry.AMOUNT_INDEX);
+        String note = cursor.getString(FinancialContract.TransactionEntry.NOTE_INDEX);
+        int day = cursor.getInt(FinancialContract.TransactionEntry.DAY_INDEX);
+        int month = cursor.getInt(FinancialContract.TransactionEntry.MONTH_INDEX);
+        int year = cursor.getInt(FinancialContract.TransactionEntry.YEAR_INDEX);
+
+        return new Transaction(id, type, catSrcId, amount, note, day, month, year);
+    }
+
+    public Calendar getCalendar(){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year,month,day);
+        return calendar;
+    }
+
+    public ContentValues toContentValues() {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(FinancialContract.TransactionEntry.AMOUNT,amount);
-        contentValues.put(FinancialContract.TransactionEntry.TYPE,type);
-        contentValues.put(FinancialContract.TransactionEntry.SOURCE_CATEGORY,categorySourceId);
-        contentValues.put(FinancialContract.TransactionEntry.DAY,day);
-        contentValues.put(FinancialContract.TransactionEntry.MONTH,month);
-        contentValues.put(FinancialContract.TransactionEntry.YEAR,year);
+        contentValues.put(FinancialContract.TransactionEntry.AMOUNT, amount);
+        contentValues.put(FinancialContract.TransactionEntry.TYPE, type);
+        contentValues.put(FinancialContract.TransactionEntry.SOURCE_CATEGORY, categorySourceId);
+        contentValues.put(FinancialContract.TransactionEntry.NOTE,note);
+        contentValues.put(FinancialContract.TransactionEntry.DAY, day);
+        contentValues.put(FinancialContract.TransactionEntry.MONTH, month);
+        contentValues.put(FinancialContract.TransactionEntry.YEAR, year);
         return contentValues;
     }
 
@@ -135,6 +159,7 @@ public class Transaction implements Parcelable {
         this.year = year;
     }
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -146,6 +171,7 @@ public class Transaction implements Parcelable {
         parcel.writeInt(type);
         parcel.writeInt(categorySourceId);
         parcel.writeFloat(amount);
+        parcel.writeString(note);
         parcel.writeInt(day);
         parcel.writeInt(month);
         parcel.writeInt(year);

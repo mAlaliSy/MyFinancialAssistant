@@ -21,6 +21,9 @@ public class FinancialContract {
         public static final String ID = "_id";
         public static final String NAME = "name";
 
+        public static final int ID_INDEX = 0;
+        public static final int NAME_INDEX = 1;
+
 
         public static final Uri CONTENT_URI = BASE_URI.buildUpon().appendPath(CATEGORIES_TABLE).build();
 
@@ -40,6 +43,10 @@ public class FinancialContract {
         public static final String ID = "_id";
         public static final String NAME = "name";
 
+        public static final int ID_INDEX = 0;
+        public static final int NAME_INDEX = 1;
+
+
         public static final Uri CONTENT_URI = BASE_URI.buildUpon().appendPath(SOURCES_TABLE).build();
 
         public static Uri buildSourceIdUri(long id){
@@ -53,6 +60,10 @@ public class FinancialContract {
 
 
     public static class TransactionEntry implements BaseColumns{
+
+
+
+
         public static final String TRANSACTIONS_TABLE ="transactions";
         public static final String ID="_id";
         public static final String TYPE = "type";
@@ -62,6 +73,17 @@ public class FinancialContract {
         public static final String DAY="day";
         public static final String MONTH="month";
         public static final String YEAR="year";
+
+        public static final int ID_INDEX = 0;
+        public static final int TYPE_INDEX = 1 ;
+        public static final int SOURCE_CATEFORY_INDEX = 2;
+        public static final int AMOUNT_INDEX = 3;
+        public static final int NOTE_INDEX = 4;
+        public static final int DAY_INDEX = 5;
+        public static final int MONTH_INDEX = 6;
+        public static final int YEAR_INDEX = 7 ;
+
+
 
         public static final Uri CONTENT_URI = BASE_URI.buildUpon().appendPath(TRANSACTIONS_TABLE).build();
 

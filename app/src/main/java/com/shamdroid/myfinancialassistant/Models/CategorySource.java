@@ -24,8 +24,8 @@ public class CategorySource {
 
     public static CategorySource fromCursor(Cursor cursor) {
 
-        int id = cursor.getInt(cursor.getColumnIndex(FinancialContract.CategoryEntry.ID));
-        String name = cursor.getString(cursor.getColumnIndex(FinancialContract.CategoryEntry.NAME));
+        int id = cursor.getInt(FinancialContract.CategoryEntry.ID_INDEX);
+        String name = cursor.getString(FinancialContract.CategoryEntry.NAME_INDEX);
         return new CategorySource(id, name);
 
     }

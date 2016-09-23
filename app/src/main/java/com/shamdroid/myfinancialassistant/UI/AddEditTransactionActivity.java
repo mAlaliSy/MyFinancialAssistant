@@ -74,19 +74,21 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
     public static final String DAY_KEY = "day";
     public static final String AMOUNT_KEY = "amount";
     public static final String CATEGORY_KEY = "category";
+    public static final String NOTE_KEY = "note";
 
     int savedCatPos = -1;
 
 
     public static final String IS_EDITING = "is_editing";
     public static final String TRANSACTION_KEY = "transaction";
-    public static final String TYPE_KEY = "key";
+    public static final String TYPE_KEY = "type";
 
 
     private boolean isEditing;
     private int type;
 
     Transaction currentTransaction; // If editing an existing transaction.
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +129,7 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
         catsSrcs = new ArrayList<>();
 
         simpleDateFormat = new SimpleDateFormat("EEE, dd/MM/yyyy");
+        selectedDate = Calendar.getInstance();
 
         if (isEditing) {
             // Load data from Intent
@@ -143,7 +146,6 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
 
             btnAdd.setText(getString(R.string.save));
         } else {
-            selectedDate = Calendar.getInstance();
             selectedDate.setTimeInMillis(System.currentTimeMillis());
             updateTextDate();
         }
@@ -266,6 +268,10 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
         int month = savedInstanceState.getInt(MONTH_KEY);
         int day = savedInstanceState.getInt(DAY_KEY);
 
+        String note = savedInstanceState.getString(NOTE_KEY);
+
+        etxtNote.setText(note);
+
         float amount = savedInstanceState.getFloat(AMOUNT_KEY);
 
         savedCatPos = savedInstanceState.getInt(CATEGORY_KEY);
@@ -274,6 +280,8 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
         updateTextDate();
 
         etxtAmount.setText(amount + "");
+
+
 
 
     }
@@ -291,6 +299,7 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
 
         outState.putFloat(AMOUNT_KEY, Float.parseFloat(etxtAmount.getText().toString()));
         outState.putInt(CATEGORY_KEY, spinCat.getSelectedItemPosition());
+        outState.putString(NOTE_KEY,etxtNote.getText().toString());
 
     }
 
@@ -329,9 +338,12 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
 
                 ContentValues contentValues = transaction.toContentValues();
 
-                if (isEditing)
+                if (isEditing) {
                     getContentResolver().update(FinancialContract.TransactionEntry.buildTransactionIdUri(currentTransaction.getId()), contentValues, null, null);
-                else
+
+
+
+                }else
                     getContentResolver().insert(FinancialContract.TransactionEntry.CONTENT_URI, contentValues);
 
 

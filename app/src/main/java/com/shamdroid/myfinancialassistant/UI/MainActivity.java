@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dollarSign = getString(R.string.dollarSign);
 
         updateOverview();
-
     }
 
 
