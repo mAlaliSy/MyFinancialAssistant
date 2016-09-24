@@ -181,7 +181,7 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
         if (cursor.moveToFirst()) {
 
             do {
-                CategorySource categorySource = CategorySource.fromCursor(cursor);
+                CategorySource categorySource = CategorySource.categoryFromCursor(cursor);
                 catsSrcs.add(categorySource);
             } while (cursor.moveToNext());
 
@@ -341,11 +341,8 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
                 if (isEditing) {
                     getContentResolver().update(FinancialContract.TransactionEntry.buildTransactionIdUri(currentTransaction.getId()), contentValues, null, null);
 
-
-
                 }else
                     getContentResolver().insert(FinancialContract.TransactionEntry.CONTENT_URI, contentValues);
-
 
                 // Update Balance
 

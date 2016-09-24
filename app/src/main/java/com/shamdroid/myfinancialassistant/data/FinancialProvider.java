@@ -61,24 +61,9 @@ public class FinancialProvider extends ContentProvider {
                         selection, selectionArgs);
                 break;
 
-            case CATEGORY_ID_CODE :
-                returnedId = sqLiteHelper.getWritableDatabase()
-                        .delete(FinancialContract.CategoryEntry.CATEGORIES_TABLE,
-                                FinancialContract.CategoryEntry.ID + " =? ",
-                                new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
-
-                break;
-
             case SOURCE_CODE:
                 returnedId = sqLiteHelper.getWritableDatabase().delete(FinancialContract.SourceEntry.SOURCES_TABLE,
                         selection, selectionArgs);
-                break;
-            case SOURCE_ID_CODE :
-                returnedId = sqLiteHelper.getWritableDatabase()
-                        .delete(FinancialContract.SourceEntry.SOURCES_TABLE,
-                                FinancialContract.SourceEntry.ID + " =? ",
-                                new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
-
                 break;
             case TRANSACTION_CODE:
                 returnedId = sqLiteHelper.getWritableDatabase().delete(FinancialContract.TransactionEntry.TRANSACTIONS_TABLE,
@@ -89,6 +74,8 @@ public class FinancialProvider extends ContentProvider {
                         .delete(FinancialContract.TransactionEntry.TRANSACTIONS_TABLE,
                                 FinancialContract.TransactionEntry.ID + " =? ",
                                 new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
+
+                Log.d("HHHHHHHHHH", FinancialContract.getIdFromUri(uri) + "\n" + uri.toString());
                 break;
 
             default:

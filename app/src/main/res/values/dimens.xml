@@ -13,4 +13,11 @@
     <dimen name="buttonPaddingHorizontal">24dp</dimen>
 
     <dimen name="btnWidth">256dp</dimen>
+    <dimen name="pieChartHeight">320dp</dimen>
+    <dimen name="warningImageHeight">120dp</dimen>
+    <dimen name="cardRoundRadius">1dp</dimen>
+    <dimen name="cardLittleElevation">1dp</dimen>
+
+    <dimen name="bottomSpace">56dp</dimen>
+    <dimen name="lineSeparatorHeight">0.5dp</dimen>
 </resources>

@@ -3,12 +3,15 @@
 
     <string name="overview">Overview</string>
     <string name="total_balance">Total Balance</string>
-    <string name="months_incomes">Month\'s Incomes</string>
-    <string name="months_expenses">Month\'s Expenses</string>
-    <string name="months_net">Month\'s Net</string>
 
     <string name="zeroDollar">0.0</string>
     <string name="dollarSign">$</string>
+
+    <string name="totalExpenses">Total Expenses</string>
+
+    <string name="expenses">Expenses</string>
+    <string name="incomes">Incomes</string>
+
 
     <!--ADD INCOME-->
     <string name="add_income">Add Income</string>
@@ -49,6 +52,25 @@
     <string name="deleteMessage">Are you sure you want to delete this transaction ? \n This will remove all its effects.</string>
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
+
+    <string name="month_expenses">%1$s Expenses</string>
+    <string name="month_incomes">%1$s Incomes</string>
+    <string name="month_net">%1$s Net</string>
+
+    <string name="noExpensesData">No expenses data in this month, add expenses to see some statistics.</string>
+
+
+    <string name="percentOfExpenses">Percent of Expenses </string>
+
+    <string name="percentOfIncomes">Percent of Incomes </string>
+
+
+    <string name="allInMonth">All in %1$s</string>
+
+    <string name="noIncomesInMonth">No incomes in %1$s yet. </string>
+
+    <string name="selectItemToView">Select chart item to view its data. </string>
+
 
     <string-array name="defaultCategories">
         <item>Home</item>

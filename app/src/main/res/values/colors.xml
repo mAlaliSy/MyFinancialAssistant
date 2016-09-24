@@ -9,4 +9,20 @@
     <color name="gray_400">#bdbdbd</color>
     <color name="gray_600">#757575</color>
     <color name="blue">#42a5f5</color>
+
+
+
+    <array name="chartsColors">
+        <item>#0091ea</item>
+        <item>#f44336</item>
+        <item>#f57c00</item>
+        <item>#ffea00</item>
+        <item>#aeea00</item>
+        <item>#64dd17</item>
+        <item>#00e5ff</item>
+        <item>#304ffe</item>
+        <item>#311b92</item>
+        <item>#aa00ff</item>
+        <item>#c51162</item>
+    </array>
 </resources>

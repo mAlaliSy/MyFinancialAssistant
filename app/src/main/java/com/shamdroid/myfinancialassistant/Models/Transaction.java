@@ -38,6 +38,7 @@ public class Transaction implements Parcelable {
         this.year = year;
     }
 
+
     protected Transaction(Parcel in) {
         id = in.readInt();
         type = in.readInt();
@@ -47,6 +48,23 @@ public class Transaction implements Parcelable {
         day = in.readInt();
         month = in.readInt();
         year = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(type);
+        dest.writeInt(categorySourceId);
+        dest.writeFloat(amount);
+        dest.writeString(note);
+        dest.writeInt(day);
+        dest.writeInt(month);
+        dest.writeInt(year);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Transaction> CREATOR = new Creator<Transaction>() {
@@ -71,14 +89,16 @@ public class Transaction implements Parcelable {
         int day = cursor.getInt(FinancialContract.TransactionEntry.DAY_INDEX);
         int month = cursor.getInt(FinancialContract.TransactionEntry.MONTH_INDEX);
         int year = cursor.getInt(FinancialContract.TransactionEntry.YEAR_INDEX);
+        String catName = cursor.getString(FinancialContract.CategoryEntry.NAME_INDEX);
+        String srcName = cursor.getString(FinancialContract.SourceEntry.NAME_INDEX);
 
         return new Transaction(id, type, catSrcId, amount, note, day, month, year);
     }
 
-    public Calendar getCalendar(){
+    public Calendar getCalendar() {
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year,month,day);
+        calendar.set(year, month, day);
         return calendar;
     }
 
@@ -87,12 +107,13 @@ public class Transaction implements Parcelable {
         contentValues.put(FinancialContract.TransactionEntry.AMOUNT, amount);
         contentValues.put(FinancialContract.TransactionEntry.TYPE, type);
         contentValues.put(FinancialContract.TransactionEntry.SOURCE_CATEGORY, categorySourceId);
-        contentValues.put(FinancialContract.TransactionEntry.NOTE,note);
+        contentValues.put(FinancialContract.TransactionEntry.NOTE, note);
         contentValues.put(FinancialContract.TransactionEntry.DAY, day);
         contentValues.put(FinancialContract.TransactionEntry.MONTH, month);
         contentValues.put(FinancialContract.TransactionEntry.YEAR, year);
         return contentValues;
     }
+
 
     public String getNote() {
         return note;
@@ -160,20 +181,4 @@ public class Transaction implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeInt(type);
-        parcel.writeInt(categorySourceId);
-        parcel.writeFloat(amount);
-        parcel.writeString(note);
-        parcel.writeInt(day);
-        parcel.writeInt(month);
-        parcel.writeInt(year);
-    }
 }

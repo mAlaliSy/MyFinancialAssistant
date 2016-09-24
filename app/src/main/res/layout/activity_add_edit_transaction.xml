@@ -110,8 +110,7 @@
                             android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
                             android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
                             android:layout_weight="1"
-                            android:padding="@dimen/textItemPadding"
-                            android:text="@string/months_net" />
+                            android:padding="@dimen/textItemPadding" />
 
                         <ImageButton
                             android:id="@+id/ibtnSelectDate"

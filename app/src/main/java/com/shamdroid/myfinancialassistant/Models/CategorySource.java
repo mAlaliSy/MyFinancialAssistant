@@ -22,14 +22,13 @@ public class CategorySource {
         this.name = name;
     }
 
-    public static CategorySource fromCursor(Cursor cursor) {
 
+
+    public static CategorySource categoryFromCursor(Cursor cursor) {
         int id = cursor.getInt(FinancialContract.CategoryEntry.ID_INDEX);
         String name = cursor.getString(FinancialContract.CategoryEntry.NAME_INDEX);
         return new CategorySource(id, name);
-
     }
-
 
     public void setName(String name) {
         this.name = name;
