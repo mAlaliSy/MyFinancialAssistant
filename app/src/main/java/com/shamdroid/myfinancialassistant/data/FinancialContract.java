@@ -73,6 +73,9 @@ public class FinancialContract {
         public static final String DAY="day";
         public static final String MONTH="month";
         public static final String YEAR="year";
+        public static final String FIREBASE_REFERENCE = "firebase_reference";
+        public static final String SAVED_IN_FIREBASE = "saved_in_firebase";
+        public static final String UPDATE_IN_FIREBASE = "update_in_firebase";
 
         public static final int ID_INDEX = 0;
         public static final int TYPE_INDEX = 1 ;
@@ -82,6 +85,9 @@ public class FinancialContract {
         public static final int DAY_INDEX = 5;
         public static final int MONTH_INDEX = 6;
         public static final int YEAR_INDEX = 7 ;
+        public static final int FIREBASE_REFERENCE_INDEX = 8;
+        public static final int SAVED_IN_FIREBASE_INDEX = 9;
+        public static final int UPDATED_IN_FIREBASE_INDEX = 10;
 
 
 

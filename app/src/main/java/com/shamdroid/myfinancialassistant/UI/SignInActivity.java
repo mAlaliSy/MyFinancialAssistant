@@ -1,14 +1,10 @@
 package com.shamdroid.myfinancialassistant.UI;
 
 import android.content.Intent;
-import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -17,7 +13,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 import com.shamdroid.myfinancialassistant.R;
 import com.shamdroid.myfinancialassistant.data.SharedPreferencesManager;
 
@@ -41,6 +42,7 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         ButterKnife.bind(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -92,9 +94,30 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
         if (googleSignInResult.isSuccess()){
             GoogleSignInAccount googleSignInAccount = googleSignInResult.getSignInAccount();
 
+            final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+            firebaseAuth.signInWithCredential(GoogleAuthProvider.getCredential(googleSignInAccount.getIdToken(),null)).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                    String userId = firebaseAuth.getCurrentUser().getUid();
+
+                    SharedPreferencesManager.setFirebaseUserId(SignInActivity.this,userId);
+
+
+                }
+            });
+
+
             SharedPreferencesManager.setIsLoggedIn(this,true);
             SharedPreferencesManager.setEmail(this,googleSignInAccount.getEmail());
             SharedPreferencesManager.setName(this,googleSignInAccount.getDisplayName());
+
+
+
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+
 
             // Sync with Firebase
 

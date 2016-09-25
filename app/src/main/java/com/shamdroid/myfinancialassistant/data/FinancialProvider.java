@@ -135,7 +135,7 @@ public class FinancialProvider extends ContentProvider {
                 int sId = (int) sqLiteHelper.getWritableDatabase().insert(FinancialContract.SourceEntry.SOURCES_TABLE, null, values);
 
                 if (sId > -1) {
-                    returedUri = FinancialContract.CategoryEntry.buildCategoryIdUri(sId);
+                    returedUri = FinancialContract.SourceEntry.buildSourceIdUri(sId);
                 } else {
                     throw new SQLiteException("Failed to insert into table : " + FinancialContract.SourceEntry.SOURCES_TABLE);
                 }
@@ -145,7 +145,7 @@ public class FinancialProvider extends ContentProvider {
                 int opId = (int) sqLiteHelper.getWritableDatabase().insert(FinancialContract.TransactionEntry.TRANSACTIONS_TABLE, null, values);
 
                 if (opId > -1) {
-                    returedUri = FinancialContract.CategoryEntry.buildCategoryIdUri(opId);
+                    returedUri = FinancialContract.TransactionEntry.buildTransactionIdUri(opId);
                 } else {
                     throw new SQLiteException("Failed to insert into table : " + FinancialContract.CategoryEntry.CATEGORIES_TABLE);
                 }

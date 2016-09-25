@@ -168,6 +168,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         legend.setYEntrySpace(5);
 
 
+
+        startActivity(new Intent(MainActivity.this,HistoryActivity.class));
+
     }
 
 

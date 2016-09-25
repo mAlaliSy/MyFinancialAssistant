@@ -8,8 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,10 +23,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.shamdroid.myfinancialassistant.Models.CategorySource;
 import com.shamdroid.myfinancialassistant.Models.Transaction;
 import com.shamdroid.myfinancialassistant.R;
 import com.shamdroid.myfinancialassistant.data.FinancialContract;
+import com.shamdroid.myfinancialassistant.data.FirebaseUtils;
 import com.shamdroid.myfinancialassistant.data.SharedPreferencesManager;
 
 import java.text.SimpleDateFormat;
@@ -140,7 +145,6 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
             selectedDate.set(currentTransaction.getYear(), currentTransaction.getMonth(), currentTransaction.getDay());
             updateTextDate();
 
-            spinCat.setSelection(getCatSrcPosFromId(currentTransaction.getId()));
 
             etxtNote.setText(currentTransaction.getNote());
 
@@ -200,6 +204,9 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, catsSrcs);
         spinCat.setAdapter(arrayAdapter);
+
+        if (isEditing)
+            spinCat.setSelection(getCatSrcPosFromId(currentTransaction.getCategorySourceId()));
 
 
         // If there is saved instance state for selected categorySource restore it
@@ -282,8 +289,6 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
         etxtAmount.setText(amount + "");
 
 
-
-
     }
 
     @Override
@@ -299,7 +304,7 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
 
         outState.putFloat(AMOUNT_KEY, Float.parseFloat(etxtAmount.getText().toString()));
         outState.putInt(CATEGORY_KEY, spinCat.getSelectedItemPosition());
-        outState.putString(NOTE_KEY,etxtNote.getText().toString());
+        outState.putString(NOTE_KEY, etxtNote.getText().toString());
 
     }
 
@@ -334,15 +339,6 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
                     return;
                 }
 
-                Transaction transaction = new Transaction(-1/*Doesn't matter*/, type, catId, amount, note, day, month, year);
-
-                ContentValues contentValues = transaction.toContentValues();
-
-                if (isEditing) {
-                    getContentResolver().update(FinancialContract.TransactionEntry.buildTransactionIdUri(currentTransaction.getId()), contentValues, null, null);
-
-                }else
-                    getContentResolver().insert(FinancialContract.TransactionEntry.CONTENT_URI, contentValues);
 
                 // Update Balance
 
@@ -354,15 +350,60 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
                     }
 
                     balance -= amount;
+
                 } else {
                     if (isEditing) {
                         balance -= currentTransaction.getAmount(); // Remove the old amount
+
                     }
 
                     balance += amount;
+
                 }
 
+
                 SharedPreferencesManager.setBalance(this, balance);
+
+
+
+                if (!isEditing) {
+
+                    Transaction transaction = new Transaction(-1/*Temporary*/, type, catId, amount, note, day, month, year);
+
+                    String firebaseReference = transaction.saveNewToFireBase(this); // Store it in firebase
+
+                    transaction.setFirebaseReference(firebaseReference); // Set the firebase reference to store it in SQLite
+
+                    transaction.setSavedToFirebase(true);
+                    transaction.setUpdatedInFirebase(true);
+
+                    ContentValues contentValues = transaction.toContentValues();
+
+
+                    Uri uri = getContentResolver().insert(FinancialContract.TransactionEntry.CONTENT_URI, contentValues);
+
+                    int id = (int) FinancialContract.getIdFromUri(uri); // Get the id from the insert uri
+
+                    transaction.setId(id); // Update the id
+
+                    transaction.updateToFirebase(this); // Update the firebase id
+
+
+
+                } else {
+
+                    currentTransaction.setAmount(amount);
+                    currentTransaction.setCategorySourceId(catId);
+                    currentTransaction.setNote(note);
+                    currentTransaction.setDay(day);
+                    currentTransaction.setMonth(month);
+                    currentTransaction.setYear(year);
+
+                    currentTransaction.updateToFirebase(this);
+
+
+                    getContentResolver().update(FinancialContract.TransactionEntry.buildTransactionIdUri(currentTransaction.getId()), currentTransaction.toContentValues(), null, null);
+                }
 
                 finish();
 

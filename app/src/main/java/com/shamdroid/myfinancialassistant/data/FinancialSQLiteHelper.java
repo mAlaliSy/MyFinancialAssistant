@@ -43,7 +43,10 @@ public class FinancialSQLiteHelper extends SQLiteOpenHelper {
                 + FinancialContract.TransactionEntry.NOTE + " TEXT , "
                 + FinancialContract.TransactionEntry.DAY + " INTEGER NOT NULL , "
                 + FinancialContract.TransactionEntry.MONTH + " INTEGER NOT NULL , "
-                + FinancialContract.TransactionEntry.YEAR + " INTEGER NOT NULL ) ;";
+                + FinancialContract.TransactionEntry.YEAR + " INTEGER NOT NULL , "
+                + FinancialContract.TransactionEntry.FIREBASE_REFERENCE + " TEXT NOT NULL , "
+                + FinancialContract.TransactionEntry.SAVED_IN_FIREBASE + " INTEGER NOT NULL , "
+                + FinancialContract.TransactionEntry.UPDATE_IN_FIREBASE + " INTEGER NOT NULL ) ;";
 
         sqLiteDatabase.execSQL(QUERY);
 
