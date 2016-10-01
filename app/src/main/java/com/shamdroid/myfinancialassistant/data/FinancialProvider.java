@@ -23,6 +23,9 @@ public class FinancialProvider extends ContentProvider {
     public static final int TRANSACTION_CODE = 300;
     public static final int TRANSACTION_ID_CODE = 301;
 
+    public static final int DELETE_FROM_FIREBASE = 400;
+    public static final int DELETE_FROM_FIREBASE_ID = 401;
+
 
     static UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -36,6 +39,10 @@ public class FinancialProvider extends ContentProvider {
 
         uriMatcher.addURI(FinancialContract.AUTHORITY, FinancialContract.TransactionEntry.TRANSACTIONS_TABLE, TRANSACTION_CODE);
         uriMatcher.addURI(FinancialContract.AUTHORITY, FinancialContract.TransactionEntry.TRANSACTIONS_TABLE + "/#", TRANSACTION_ID_CODE);
+
+
+        uriMatcher.addURI(FinancialContract.AUTHORITY, FinancialContract.DeleteFromFirebaseEntry.DELETE_FROM_FIREBASE_TABLE, DELETE_FROM_FIREBASE);
+        uriMatcher.addURI(FinancialContract.AUTHORITY, FinancialContract.DeleteFromFirebaseEntry.DELETE_FROM_FIREBASE_TABLE + "/#", DELETE_FROM_FIREBASE_ID);
     }
 
 
@@ -75,7 +82,21 @@ public class FinancialProvider extends ContentProvider {
                                 FinancialContract.TransactionEntry.ID + " =? ",
                                 new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
 
-                Log.d("HHHHHHHHHH", FinancialContract.getIdFromUri(uri) + "\n" + uri.toString());
+                case CATEGORY_ID_CODE:
+                returnedId = sqLiteHelper.getWritableDatabase()
+                        .delete(FinancialContract.CategoryEntry.CATEGORIES_TABLE,
+                                FinancialContract.CategoryEntry.ID + " =? ",
+                                new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
+
+                case SOURCE_ID_CODE:
+                returnedId = sqLiteHelper.getWritableDatabase()
+                        .delete(FinancialContract.SourceEntry.SOURCES_TABLE,
+                                FinancialContract.SourceEntry.ID + " =? ",
+                                new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
+
+                break;
+            case DELETE_FROM_FIREBASE:
+                sqLiteHelper.getWritableDatabase().delete(FinancialContract.DeleteFromFirebaseEntry.DELETE_FROM_FIREBASE_TABLE, null, null);
                 break;
 
             default:
@@ -150,6 +171,18 @@ public class FinancialProvider extends ContentProvider {
                     throw new SQLiteException("Failed to insert into table : " + FinancialContract.CategoryEntry.CATEGORIES_TABLE);
                 }
                 break;
+
+            case DELETE_FROM_FIREBASE:
+                int delId = (int) sqLiteHelper.getWritableDatabase().insert(FinancialContract.DeleteFromFirebaseEntry.DELETE_FROM_FIREBASE_TABLE, null, values);
+
+                if (delId > -1) {
+                    returedUri = FinancialContract.DeleteFromFirebaseEntry.buildDeleteFromFirebaseIdUri(delId);
+                } else
+                    throw new SQLiteException("Failed to insert into table : " + FinancialContract.CategoryEntry.CATEGORIES_TABLE);
+
+                break;
+
+
             default:
                 throw new UnsupportedOperationException("Not yet implemented");
         }
@@ -210,6 +243,13 @@ public class FinancialProvider extends ContentProvider {
                         new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))},
                         null, null, null);
 
+            case DELETE_FROM_FIREBASE:
+                return sqLiteDatabase.query(FinancialContract.DeleteFromFirebaseEntry.DELETE_FROM_FIREBASE_TABLE,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null, null, null);
+
             default:
                 throw new UnsupportedOperationException("Not yet implemented");
         }
@@ -231,7 +271,7 @@ public class FinancialProvider extends ContentProvider {
             case CATEGORY_ID_CODE:
                 return sqLiteDatabase.update(FinancialContract.CategoryEntry.CATEGORIES_TABLE,
                         values,
-                        FinancialContract.CategoryEntry.ID + "=?",
+                        FinancialContract.CategoryEntry.ID + " =? ",
                         new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
             case SOURCE_CODE:
                 return sqLiteDatabase.update(FinancialContract.SourceEntry.SOURCES_TABLE,
@@ -242,7 +282,7 @@ public class FinancialProvider extends ContentProvider {
 
                 return sqLiteDatabase.update(FinancialContract.SourceEntry.SOURCES_TABLE,
                         values,
-                        FinancialContract.CategoryEntry.ID + "=?",
+                        FinancialContract.CategoryEntry.ID + " =? ",
                         new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
             case TRANSACTION_CODE:
                 return sqLiteDatabase.update(FinancialContract.TransactionEntry.TRANSACTIONS_TABLE,
@@ -253,7 +293,7 @@ public class FinancialProvider extends ContentProvider {
 
                 return sqLiteDatabase.update(FinancialContract.TransactionEntry.TRANSACTIONS_TABLE,
                         values,
-                        FinancialContract.CategoryEntry.ID + "=?",
+                        FinancialContract.CategoryEntry.ID + " =? ",
                         new String[]{String.valueOf(FinancialContract.getIdFromUri(uri))});
 
             default:

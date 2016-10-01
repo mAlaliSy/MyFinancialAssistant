@@ -16,6 +16,8 @@ public class SharedPreferencesManager {
     public static final String NAME_KEY = "name";
     public static final String BALANCE_KEY = "balance";
     public static final String FIREBASE_USER_ID = "firebase_user_id";
+    public static final String PROFILE_IMAGE = "profile_image";
+
 
     private static SharedPreferences sharedPreferences;
 
@@ -73,5 +75,12 @@ public class SharedPreferencesManager {
         return getSharedPreferences(context).getString(FIREBASE_USER_ID, null);
     }
 
+    public static String getProfileImage(Context context){
+        return getSharedPreferences(context).getString(PROFILE_IMAGE,null);
+    }
+
+    public static void setProfileImage(Context context, String url){
+        getEditor(context).putString(PROFILE_IMAGE,url).apply();
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.shamdroid.myfinancialassistant.UI;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 
 import com.shamdroid.myfinancialassistant.Models.Transaction;
 import com.shamdroid.myfinancialassistant.R;
+import com.shamdroid.myfinancialassistant.Utils.Utils;
 import com.shamdroid.myfinancialassistant.data.FinancialContract;
 import com.shamdroid.myfinancialassistant.data.SharedPreferencesManager;
 
@@ -116,6 +119,9 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         category = context.getString(R.string.category);
         source = context.getString(R.string.source);
+
+
+
 
         ((AppCompatActivity) context).getLoaderManager().initLoader(CATEGORY_LOADER, null, this);
         ((AppCompatActivity) context).getLoaderManager().initLoader(SOURCE_LOADER, null, this);
@@ -351,7 +357,21 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     private void deleteTransaction(Transaction transaction, int position) {
 
+        if(Utils.isConnected(context))
+            transaction.deleteFromFirebase(context);
+        else{
 
+            String fireBaseRef = transaction.getFirebaseReference();
+            String type = FinancialContract.TransactionEntry.TRANSACTIONS_TABLE;
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(FinancialContract.DeleteFromFirebaseEntry.REFERENCE,fireBaseRef);
+            contentValues.put(FinancialContract.DeleteFromFirebaseEntry.TYPE,type);
+
+            if(fireBaseRef != null && fireBaseRef.length()!=0){
+                context.getContentResolver().insert(FinancialContract.DeleteFromFirebaseEntry.CONTENT_URI, contentValues);
+            }
+
+        }
         context.getContentResolver().delete(FinancialContract.TransactionEntry.buildTransactionIdUri(transaction.getId()), null, null);
         if (transaction.getType() == Transaction.EXPENSE_TYPE) {
             float balance = SharedPreferencesManager.getBalance(context);

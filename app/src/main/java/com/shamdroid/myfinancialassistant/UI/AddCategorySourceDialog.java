@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.shamdroid.myfinancialassistant.Models.CategorySource;
 import com.shamdroid.myfinancialassistant.R;
+import com.shamdroid.myfinancialassistant.Utils.Utils;
 import com.shamdroid.myfinancialassistant.data.FinancialContract;
 
 import butterknife.BindView;
@@ -39,10 +40,17 @@ public class AddCategorySourceDialog extends Dialog implements View.OnClickListe
 
     int type;
 
-    public AddCategorySourceDialog(Context context, int type) {
+    boolean isEditing = false;
+
+
+    CategorySource categorySource;
+    private CategoryAddCallback categoryAddCallback;
+
+
+    public AddCategorySourceDialog(Context context, int type, CategoryAddCallback categoryAddCallback) {
         super(context);
         this.context = context;
-
+this.categoryAddCallback=categoryAddCallback;
         this.type = type;
     }
 
@@ -56,55 +64,137 @@ public class AddCategorySourceDialog extends Dialog implements View.OnClickListe
 
         ButterKnife.bind(this);
 
-        txtCatSrc.setText(context.getString(type==CategorySource.TYPE_CAT?R.string.category:R.string.source));
+        txtCatSrc.setText(context.getString(type == CategorySource.TYPE_CAT ? R.string.category : R.string.source));
 
         btnAdd.setOnClickListener(this);
+
+        if (isEditing) {
+            etxtCategoryName.setText(categorySource.getName());
+        }
+
+        btnAdd.setText(context.getString(isEditing ? R.string.save : R.string.add));
+
 
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnAdd:
-
                 String name = etxtCategoryName.getText().toString();
 
-                if (name.length()==0) {
+                if (name.length() == 0) {
                     Toast.makeText(context, context.getString(R.string.emptyString), Toast.LENGTH_LONG).show();
-                }else{
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put(FinancialContract.CategoryEntry.NAME,name);
-
-                    Uri uri;
-                    if(type == CategorySource.TYPE_CAT)
-                        uri = context.getContentResolver().insert(FinancialContract.CategoryEntry.CONTENT_URI,contentValues);
-                    else
-                        uri = context.getContentResolver().insert(FinancialContract.SourceEntry.CONTENT_URI,contentValues);
-
-                    int id = (int) FinancialContract.getIdFromUri(uri);
-
-                    this.dismiss();
-
-                    CategorySource categorySource = new CategorySource(id,name);
-                    ((CategoryAddCallback)context).onCategoryAdded(categorySource);
+                    return;
                 }
 
+                if (isEditing) {
+                    Uri uri = type == CategorySource.TYPE_CAT ? FinancialContract.CategoryEntry.buildCategoryIdUri(categorySource.getId()) :
+                            FinancialContract.SourceEntry.buildSourceIdUri(categorySource.getId());
+
+                    categorySource.setName(name);
+                    categorySource.updateFirebase(context);
+                    ContentValues contentValues = categorySource.toContentValues();
+
+                    context.getContentResolver().update(uri, contentValues, null, null);
+
+
+                } else {
+
+                    CategorySource categorySource = new CategorySource(-1, name);
+
+                    categorySource.setType(type);
+
+                    Uri uri;
+                    if (type == CategorySource.TYPE_CAT) {
+
+
+                        if (Utils.isConnected(context)) {
+                            String firebaseReference = categorySource.saveNewToFirebase(context);
+
+                            categorySource.setFirebaseReference(firebaseReference);
+                        } else
+                            categorySource.setSavedToFirebase(false);
+
+
+                        ContentValues contentValues = categorySource.toContentValues();
+
+                        uri = context.getContentResolver().insert(FinancialContract.CategoryEntry.CONTENT_URI, contentValues);
+
+
+                        if (Utils.isConnected(context)) {
+                            int id = (int) FinancialContract.getIdFromUri(uri);
+
+                            categorySource.setId(id);
+
+                            categorySource.updateFirebase(context);
+                        }
+                    } else {
+
+                        if (Utils.isConnected(context)) {
+                            String firebaseReference = categorySource.saveNewToFirebase(context);
+
+                            categorySource.setFirebaseReference(firebaseReference);
+
+                        } else {
+                            categorySource.setSavedToFirebase(false);
+                        }
+                        ContentValues contentValues = categorySource.toContentValues();
+
+                        uri = context.getContentResolver().insert(FinancialContract.SourceEntry.CONTENT_URI, contentValues);
+
+                        if (Utils.isConnected(context)) {
+                            int id = (int) FinancialContract.getIdFromUri(uri);
+
+                            categorySource.setId(id);
+
+                            categorySource.updateFirebase(context);
+                        }
+
+
+                    }
+
+
+                    categoryAddCallback.onCategoryAdded(categorySource);
+
+                }
+
+                this.dismiss();
+
                 break;
+
         }
     }
 
 
-    public interface CategoryAddCallback{
+    public interface CategoryAddCallback {
         void onCategoryAdded(CategorySource categorySource);
     }
 
 
+    public boolean isEditing() {
+        return isEditing;
+    }
 
-    public String getName(){
+    public void setEditing(boolean editing) {
+        isEditing = editing;
+
+    }
+
+    public CategorySource getCategorySource() {
+        return categorySource;
+    }
+
+    public void setCategorySource(CategorySource categorySource) {
+        this.categorySource = categorySource;
+    }
+
+
+    public String getName() {
         return etxtCategoryName.getText().toString();
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         etxtCategoryName.setText(name);
     }
 }

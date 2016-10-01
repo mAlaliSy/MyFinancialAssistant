@@ -1,43 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    >
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:visibility="gone"
-            android:id="@+id/noTransactions">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:text="@string/noTransactions"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView3"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:gravity="center"
-                android:textColor="@color/gray_600" />
-        </LinearLayout>
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"></android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
-            android:layout_gravity="center"
-            android:id="@+id/progHistoryLoading" />
-
-        <android.support.v7.widget.RecyclerView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/historyRecyclerView"
-            android:visibility="gone" />
-    </FrameLayout>
+            android:layout_height="match_parent">
 
-</LinearLayout>
+            <LinearLayout
+                android:id="@+id/noTransactions"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/noTransactions"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/gray_600" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progHistoryLoading"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/historyRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="276dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/navigation_menu">
+
+
+    </android.support.design.widget.NavigationView>
+
+
+</android.support.v4.widget.DrawerLayout>

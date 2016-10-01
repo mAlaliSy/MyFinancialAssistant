@@ -1,343 +1,381 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.shamdroid.myfinancialassistant.UI.MainActivity">
+    android:id="@+id/drawerLayout"
+    android:fitsSystemWindows="true"
+    >
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/activity_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.shamdroid.myfinancialassistant.UI.MainActivity">
 
-        <LinearLayout
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="?attr/actionBarSize"
+            android:visibility="visible">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardView"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/sectionMargin"
-                app:cardElevation="@dimen/cardLittleElevation"
+                android:orientation="vertical">
 
-                app:cardCornerRadius="0dp"
-                >
-
-                <GridLayout
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:columnCount="2"
-                    android:paddingBottom="@dimen/cardPadding"
-                    android:paddingTop="@dimen/cardPadding">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/sectionMargin"
+                    app:cardCornerRadius="0dp"
 
-                    <TextView
-                        android:id="@+id/textView"
-                        style="@style/TextAppearance.AppCompat.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_columnSpan="2"
-                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:layout_marginStart="@dimen/activity_horizontal_margin"
-                        android:padding="@dimen/textTitlePadding"
-                        android:text="@string/overview"
-                        android:textColor="@color/colorAccent" />
+                    app:cardElevation="@dimen/cardLittleElevation">
 
-                    <TextView
-                        android:id="@+id/textView2"
-                        style="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
-                        android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
-                        android:padding="@dimen/textItemPadding"
-                        android:text="@string/total_balance"
-                        android:layout_gravity="start" />
-
-                    <TextView
-                        android:id="@+id/txtBalance"
-                        style="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:padding="@dimen/textItemPadding"
-                        android:text="1500$"
-                        android:textColor="@color/colorPrimary"
-                        android:gravity="end" />
-
-                    <TextView
-                        style="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
-                        android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
-                        android:padding="@dimen/textItemPadding"
-                        android:id="@+id/monthsIncomes"
-                        android:layout_gravity="start" />
-
-                    <TextView
-                        android:id="@+id/txtMonthIncomes"
-                        style="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:padding="@dimen/textItemPadding"
-                        android:text="1000$"
-                        android:textColor="@color/green"
-                        android:gravity="end" />
-
-                    <TextView
-                        style="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
-                        android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
-                        android:padding="@dimen/textItemPadding"
-                        android:id="@+id/monthsExpenses"
-                        android:layout_gravity="start" />
-
-                    <TextView
-                        android:id="@+id/txtMonthExpenses"
-                        style="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:padding="@dimen/textItemPadding"
-                        android:text="500$"
-                        android:textColor="@color/red"
-                        android:gravity="end" />
-
-                    <TextView
-                        style="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
-                        android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
-                        android:padding="@dimen/textItemPadding"
-                        android:id="@+id/monthNet"
-                        android:layout_gravity="start" />
-
-                    <TextView
-                        android:id="@+id/txtMonthNet"
-                        style="@style/Base.TextAppearance.AppCompat.Medium"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-                        android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:padding="@dimen/textItemPadding"
-                        android:text="500$"
-                        android:textColor="@color/green"
-                        android:gravity="end" />
-                </GridLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/pieChartHeight">
-
-                <LinearLayout
-                    android:id="@+id/noDataMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <ImageView
-                        android:id="@+id/imageView"
+                    <GridLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/warningImageHeight"
-                        android:padding="@dimen/textTitlePadding"
-                        android:tint="@color/gray_600"
-                        android:src="@drawable/ic_warning_black_24dp" />
+                        android:layout_height="match_parent"
+                        android:columnCount="2"
+                        android:paddingBottom="@dimen/cardPadding"
+                        android:paddingTop="@dimen/cardPadding">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_columnSpan="2"
+                            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                            android:layout_marginStart="@dimen/activity_horizontal_margin"
+                            android:padding="@dimen/textTitlePadding"
+                            android:text="@string/overview"
+                            android:textColor="@color/colorAccent" />
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            style="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                            android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                            android:padding="@dimen/textItemPadding"
+                            android:text="@string/total_balance" />
+
+                        <TextView
+                            android:id="@+id/txtBalance"
+                            style="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:gravity="end"
+                            android:padding="@dimen/textItemPadding"
+                            android:text="1500$"
+                            android:textColor="@color/colorPrimary" />
+
+                        <TextView
+                            android:id="@+id/monthsIncomes"
+                            style="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                            android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                            android:padding="@dimen/textItemPadding" />
+
+                        <TextView
+                            android:id="@+id/txtMonthIncomes"
+                            style="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:gravity="end"
+                            android:padding="@dimen/textItemPadding"
+                            android:text="1000$"
+                            android:textColor="@color/green" />
+
+                        <TextView
+                            android:id="@+id/monthsExpenses"
+                            style="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                            android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                            android:padding="@dimen/textItemPadding" />
+
+                        <TextView
+                            android:id="@+id/txtMonthExpenses"
+                            style="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:gravity="end"
+                            android:padding="@dimen/textItemPadding"
+                            android:text="500$"
+                            android:textColor="@color/red" />
+
+                        <TextView
+                            android:id="@+id/monthNet"
+                            style="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginLeft="@dimen/activity_horizontal_sub_margin"
+                            android:layout_marginStart="@dimen/activity_horizontal_sub_margin"
+                            android:padding="@dimen/textItemPadding" />
+
+                        <TextView
+                            android:id="@+id/txtMonthNet"
+                            style="@style/Base.TextAppearance.AppCompat.Medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                            android:layout_marginRight="@dimen/activity_horizontal_margin"
+                            android:gravity="end"
+                            android:padding="@dimen/textItemPadding"
+                            android:text="500$"
+                            android:textColor="@color/green" />
+                    </GridLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/pieChartHeight">
+
+                    <LinearLayout
+                        android:id="@+id/noDataMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/warningImageHeight"
+                            android:padding="@dimen/textTitlePadding"
+                            app:srcCompat="@drawable/ic_warning_black_24dp"
+                            android:tint="@color/gray_600" />
+
+                        <TextView
+                            android:id="@+id/textView4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="@dimen/textTitlePadding"
+                            android:text="@string/noExpensesData"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    </LinearLayout>
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/sectionMargin"></com.github.mikephil.charting.charts.PieChart>
+                </FrameLayout>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/selectedDataContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/bottomSpace"
+                    android:layout_marginLeft="@dimen/cardPadding"
+                    android:layout_marginRight="@dimen/cardPadding"
+                    android:layout_marginTop="@dimen/cardPadding"
+                    android:padding="@dimen/cardPadding"
+                    android:visibility="visible"
+                    app:cardCornerRadius="@dimen/cardRoundRadius"
+                    app:cardElevation="@dimen/cardLittleElevation">
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/txtSelectItemMessage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:padding="@dimen/textTitlePadding"
-                        android:text="@string/noExpensesData"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-                </LinearLayout>
-
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/pieChart"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/sectionMargin"></com.github.mikephil.charting.charts.PieChart>
-            </FrameLayout>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="@dimen/cardRoundRadius"
-                android:padding="@dimen/cardPadding"
-                app:cardElevation="@dimen/cardLittleElevation"
-                android:layout_marginBottom="@dimen/bottomSpace"
-                android:visibility="visible"
-                android:id="@+id/selectedDataContainer"
-                android:layout_marginLeft="@dimen/cardPadding"
-                android:layout_marginRight="@dimen/cardPadding"
-                android:layout_marginTop="@dimen/cardPadding">
-
-                <TextView
-                    android:text="@string/selectItemToView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txtSelectItemMessage"
-                    android:padding="@dimen/cardPadding"
-                    android:gravity="center"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:visibility="visible" />
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/cardPadding"
-                    android:id="@+id/chartSelectedData"
-                    android:visibility="gone">
+                        android:padding="@dimen/cardPadding"
+                        android:text="@string/selectItemToView"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:visibility="visible" />
 
                     <LinearLayout
-                        android:orientation="horizontal"
+                        android:id="@+id/chartSelectedData"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="@dimen/cardPadding"
+                        android:visibility="gone">
 
-                        <TextView
-                            android:text="TextView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:id="@+id/txtChartCatName"
-                            android:paddingBottom="@dimen/textTitlePadding"
-                            android:paddingTop="@dimen/textTitlePadding" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
 
+                            <TextView
+                                android:id="@+id/txtChartCatName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingBottom="@dimen/textTitlePadding"
+                                android:paddingTop="@dimen/textTitlePadding"
+                                android:text="TextView"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/textItemPadding"
+                                android:text="@string/totalExpenses"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                            <TextView
+                                android:id="@+id/txtTotalExpensesVal"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/textItemPadding"
+                                android:text="TextView"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView16"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/textItemPadding"
+                                android:text="@string/percentOfExpenses" />
+
+                            <TextView
+                                android:id="@+id/txtPercentOfExpensesVal"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/textItemPadding"
+                                android:text="TextView" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/textItemPadding"
+                                android:text="@string/percentOfIncomes" />
+
+                            <TextView
+                                android:id="@+id/txtPercentOfIncomesVal"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:padding="@dimen/textItemPadding"
+                                android:text="TextView" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/lineSeparatorHeight"
+                            android:layout_marginBottom="@dimen/textTitlePadding"
+                            android:layout_marginTop="@dimen/textTitlePadding"
+                            android:background="@color/gray_400"
+                            android:orientation="horizontal"></LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txtAllInMonth"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                android:textColor="?android:attr/textColorSecondaryInverseNoDisable" />
+
+                        </LinearLayout>
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:text="@string/totalExpenses"
-                            android:padding="@dimen/textItemPadding" />
-
-                        <TextView
-                            android:text="TextView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/txtTotalExpensesVal"
-                            android:layout_weight="1"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:padding="@dimen/textItemPadding" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:text="@string/percentOfExpenses"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/textView16"
-                            android:layout_weight="1"
-                            android:padding="@dimen/textItemPadding" />
-
-                        <TextView
-                            android:text="TextView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/txtPercentOfExpensesVal"
-                            android:layout_weight="1"
-                            android:padding="@dimen/textItemPadding" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:text="@string/percentOfIncomes"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/textView18"
-                            android:layout_weight="1"
-                            android:padding="@dimen/textItemPadding" />
-
-                        <TextView
-                            android:text="TextView"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/txtPercentOfIncomesVal"
-                            android:layout_weight="1"
-                            android:padding="@dimen/textItemPadding" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/lineSeparatorHeight"
-                        android:background="@color/gray_400"
-                        android:layout_marginBottom="@dimen/textTitlePadding"
-                        android:layout_marginTop="@dimen/textTitlePadding"></LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/txtAllInMonth"
-                            android:layout_weight="1"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:gravity="center"
-                            android:textColor="?android:attr/textColorSecondaryInverseNoDisable" />
-
-                    </LinearLayout>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+                </android.support.v7.widget.CardView>
 
 
-        </LinearLayout>
-    </ScrollView>
+            </LinearLayout>
+        </ScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:clickable="true"
-        android:src="@drawable/ic_add_white_48px"
-        app:fabSize="normal" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            app:srcCompat="@drawable/ic_add_white_48px"
+            app:fabSize="normal"
+            android:layout_margin="@dimen/fab_margin" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="276dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/navigation_menu">
+
+
+    </android.support.design.widget.NavigationView>
+
+
+
+
+</android.support.v4.widget.DrawerLayout>

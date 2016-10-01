@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.shamdroid.myfinancialassistant.Models.CategorySource;
 import com.shamdroid.myfinancialassistant.Models.Transaction;
 import com.shamdroid.myfinancialassistant.R;
+import com.shamdroid.myfinancialassistant.Utils.Utils;
 import com.shamdroid.myfinancialassistant.data.FinancialContract;
 import com.shamdroid.myfinancialassistant.data.FirebaseUtils;
 import com.shamdroid.myfinancialassistant.data.SharedPreferencesManager;
@@ -35,6 +36,7 @@ import com.shamdroid.myfinancialassistant.data.SharedPreferencesManager;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Scanner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -131,6 +133,9 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
         }
 
 
+
+
+
         catsSrcs = new ArrayList<>();
 
         simpleDateFormat = new SimpleDateFormat("EEE, dd/MM/yyyy");
@@ -184,11 +189,19 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
 
         if (cursor.moveToFirst()) {
 
-            do {
-                CategorySource categorySource = CategorySource.categoryFromCursor(cursor);
-                catsSrcs.add(categorySource);
-            } while (cursor.moveToNext());
+            if (type == CategorySource.TYPE_CAT) {
+                do {
+                    CategorySource categorySource = CategorySource.categoryFromCursor(cursor);
+                    catsSrcs.add(categorySource);
+                } while (cursor.moveToNext());
 
+            }else{
+                do {
+                    CategorySource categorySource = CategorySource.sourceFromCursor(cursor);
+                    catsSrcs.add(categorySource);
+                } while (cursor.moveToNext());
+
+            }
         }
 
         String newCatSrc;
@@ -220,7 +233,7 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
                 if (catsSrcs.get(i).getId() == -1) {
                     addCategorySourceDialog = new AddCategorySourceDialog(AddEditTransactionActivity.this,
                             type == Transaction.EXPENSE_TYPE ? CategorySource.TYPE_CAT
-                                    : CategorySource.TYPE_SRC);
+                                    : CategorySource.TYPE_SRC,AddEditTransactionActivity.this);
 
                     addCategorySourceDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
@@ -266,7 +279,7 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
             String name = savedInstanceState.getString(FinancialContract.CategoryEntry.NAME);
             addCategorySourceDialog = new AddCategorySourceDialog(AddEditTransactionActivity.this,
                     type == Transaction.EXPENSE_TYPE ? CategorySource.TYPE_CAT
-                            : CategorySource.TYPE_SRC);
+                            : CategorySource.TYPE_SRC,this);
             addCategorySourceDialog.show();
             addCategorySourceDialog.setName(name);
         }
@@ -365,30 +378,34 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
                 SharedPreferencesManager.setBalance(this, balance);
 
 
-
                 if (!isEditing) {
 
                     Transaction transaction = new Transaction(-1/*Temporary*/, type, catId, amount, note, day, month, year);
 
-                    String firebaseReference = transaction.saveNewToFireBase(this); // Store it in firebase
+                    if (Utils.isConnected(this)) {
 
-                    transaction.setFirebaseReference(firebaseReference); // Set the firebase reference to store it in SQLite
+                        String firebaseReference = transaction.saveNewToFireBase(this); // Store it in firebase
 
-                    transaction.setSavedToFirebase(true);
-                    transaction.setUpdatedInFirebase(true);
+                        transaction.setFirebaseReference(firebaseReference); // Set the firebase reference to store it in SQLite
 
+                    } else {
+                        transaction.setSavedToFirebase(false);
+                    }
                     ContentValues contentValues = transaction.toContentValues();
 
 
                     Uri uri = getContentResolver().insert(FinancialContract.TransactionEntry.CONTENT_URI, contentValues);
 
-                    int id = (int) FinancialContract.getIdFromUri(uri); // Get the id from the insert uri
 
-                    transaction.setId(id); // Update the id
-
-                    transaction.updateToFirebase(this); // Update the firebase id
+                    if (Utils.isConnected(this)) {
+                        int id = (int) FinancialContract.getIdFromUri(uri); // Get the id from the insert uri
 
 
+
+                        transaction.setId(id); // Update the id
+                        transaction.updateToFirebase(this); // Update the firebase id
+
+                    }
 
                 } else {
 
@@ -399,8 +416,12 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
                     currentTransaction.setMonth(month);
                     currentTransaction.setYear(year);
 
-                    currentTransaction.updateToFirebase(this);
 
+                    if (Utils.isConnected(this)) {
+                        currentTransaction.updateToFirebase(this);
+                    } else {
+                        currentTransaction.setUpdatedInFirebase(false);
+                    }
 
                     getContentResolver().update(FinancialContract.TransactionEntry.buildTransactionIdUri(currentTransaction.getId()), currentTransaction.toContentValues(), null, null);
                 }

@@ -25,17 +25,23 @@ public class FinancialSQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        String QUERY = "CREATE TABLE " + FinancialContract.CategoryEntry.CATEGORIES_TABLE + " ( "
+        String QUERY = "CREATE TABLE IF NOT EXISTS " + FinancialContract.CategoryEntry.CATEGORIES_TABLE + " ( "
                 + FinancialContract.CategoryEntry.ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                FinancialContract.CategoryEntry.NAME + " VACHAR(255) NOT NULL );";
+                FinancialContract.CategoryEntry.NAME + " VARCHAR(255) NOT NULL , "
+                + FinancialContract.TransactionEntry.FIREBASE_REFERENCE + " TEXT , "
+                + FinancialContract.TransactionEntry.SAVED_IN_FIREBASE + " INTEGER  , "
+                + FinancialContract.TransactionEntry.UPDATE_IN_FIREBASE + " INTEGER  ) ;";
         sqLiteDatabase.execSQL(QUERY);
 
-        QUERY = "CREATE TABLE " + FinancialContract.SourceEntry.SOURCES_TABLE + " ( "
+        QUERY = "CREATE TABLE IF NOT EXISTS " + FinancialContract.SourceEntry.SOURCES_TABLE + " ( "
                 + FinancialContract.SourceEntry.ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
-                FinancialContract.SourceEntry.NAME + " VACHAR(255) NOT NULL );";
+                FinancialContract.SourceEntry.NAME + " VARCHAR(255) NOT NULL , "
+                + FinancialContract.TransactionEntry.FIREBASE_REFERENCE + " TEXT , "
+                + FinancialContract.TransactionEntry.SAVED_IN_FIREBASE + " INTEGER  , "
+                + FinancialContract.TransactionEntry.UPDATE_IN_FIREBASE + " INTEGER  ) ;";
         sqLiteDatabase.execSQL(QUERY);
 
-        QUERY = "CREATE TABLE " + FinancialContract.TransactionEntry.TRANSACTIONS_TABLE + " ( "
+        QUERY = "CREATE TABLE IF NOT EXISTS " + FinancialContract.TransactionEntry.TRANSACTIONS_TABLE + " ( "
                 + FinancialContract.TransactionEntry.ID + " INTEGER PRIMARY KEY AUTOINCREMENT , "
                 + FinancialContract.TransactionEntry.TYPE + " INTEGER NOT NULL , "
                 + FinancialContract.TransactionEntry.SOURCE_CATEGORY + " INTEGER NOT NULL , "
@@ -44,12 +50,17 @@ public class FinancialSQLiteHelper extends SQLiteOpenHelper {
                 + FinancialContract.TransactionEntry.DAY + " INTEGER NOT NULL , "
                 + FinancialContract.TransactionEntry.MONTH + " INTEGER NOT NULL , "
                 + FinancialContract.TransactionEntry.YEAR + " INTEGER NOT NULL , "
-                + FinancialContract.TransactionEntry.FIREBASE_REFERENCE + " TEXT NOT NULL , "
-                + FinancialContract.TransactionEntry.SAVED_IN_FIREBASE + " INTEGER NOT NULL , "
-                + FinancialContract.TransactionEntry.UPDATE_IN_FIREBASE + " INTEGER NOT NULL ) ;";
+                + FinancialContract.TransactionEntry.FIREBASE_REFERENCE + " TEXT , "
+                + FinancialContract.TransactionEntry.SAVED_IN_FIREBASE + " INTEGER  , "
+                + FinancialContract.TransactionEntry.UPDATE_IN_FIREBASE + " INTEGER  ) ;";
 
         sqLiteDatabase.execSQL(QUERY);
 
+        QUERY = "CREATE TABLE IF NOT EXISTS " + FinancialContract.DeleteFromFirebaseEntry.DELETE_FROM_FIREBASE_TABLE +"( "
+                + FinancialContract.DeleteFromFirebaseEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL  , "
+                + FinancialContract.DeleteFromFirebaseEntry.REFERENCE + " TEXT NOT NULL , "
+                + FinancialContract.DeleteFromFirebaseEntry.TYPE + " TEXT NOT NULL );";
+        sqLiteDatabase.execSQL(QUERY);
 
         String[] defaultCategories = context.getResources().getStringArray(R.array.defaultCategories);
 

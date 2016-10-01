@@ -36,8 +36,8 @@ public class Transaction implements Parcelable {
 
     String firebaseReference;
 
-    boolean savedToFirebase;
-    boolean updatedInFirebase;
+    boolean savedToFirebase = true;
+    boolean updatedInFirebase = true;
 
 
     public Transaction(int id, int type, int categorySourceId, float amount, String note, int day, int month, int year, String firebaseReference, boolean savedToFirebase, boolean updatedInFirebase) {
@@ -99,28 +99,31 @@ public class Transaction implements Parcelable {
 
         newTransition.setValue(toMap());
 
+        newTransition.keepSynced(true);
 
         return newTransition.getKey();
     }
 
 
 
+
+
     public void updateToFirebase(Context context){
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-
-        DatabaseReference databaseReference = firebaseDatabase.getReference();
-
-        DatabaseReference users = databaseReference.child(FirebaseUtils.USERS_CHILD);
-        DatabaseReference user = users.child(SharedPreferencesManager.getFirebaseUserId(context));
-
-        DatabaseReference transactions = user.child(FinancialContract.TransactionEntry.TRANSACTIONS_TABLE);
-
-        DatabaseReference selectedTransaction = transactions.child(firebaseReference);
+        DatabaseReference selectedTransaction = FirebaseUtils.getTransitionRef(context,firebaseReference);
 
         selectedTransaction.setValue(toMap());
     }
 
+
+
+    public void deleteFromFirebase(Context context){
+
+        DatabaseReference databaseReference =  FirebaseUtils.getTransitionRef(context,firebaseReference);
+
+        databaseReference.removeValue();
+
+    }
 
 
     public String getFirebaseReference() {
@@ -204,8 +207,8 @@ public class Transaction implements Parcelable {
         int month = cursor.getInt(FinancialContract.TransactionEntry.MONTH_INDEX);
         int year = cursor.getInt(FinancialContract.TransactionEntry.YEAR_INDEX);
         String firebaseReference = cursor.getString(FinancialContract.TransactionEntry.FIREBASE_REFERENCE_INDEX);
-        boolean savedToFirebase = cursor.getInt(FinancialContract.TransactionEntry.SAVED_IN_FIREBASE_INDEX) == 1 ? true : false;
-        boolean updatedInFirebase = cursor.getInt(FinancialContract.TransactionEntry.UPDATED_IN_FIREBASE_INDEX) == 1 ? true : false;
+        boolean savedToFirebase = cursor.getInt(FinancialContract.TransactionEntry.SAVED_IN_FIREBASE_INDEX) == 1 ;
+        boolean updatedInFirebase = cursor.getInt(FinancialContract.TransactionEntry.UPDATED_IN_FIREBASE_INDEX) == 1;
 
         return new Transaction(id, type, catSrcId, amount, note, day, month, year, firebaseReference, savedToFirebase, updatedInFirebase);
     }

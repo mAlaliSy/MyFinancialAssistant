@@ -112,10 +112,12 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             SharedPreferencesManager.setIsLoggedIn(this,true);
             SharedPreferencesManager.setEmail(this,googleSignInAccount.getEmail());
             SharedPreferencesManager.setName(this,googleSignInAccount.getDisplayName());
+            SharedPreferencesManager.setProfileImage(this,googleSignInAccount.getPhotoUrl().toString());
 
 
 
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
 
 
 
@@ -125,9 +127,6 @@ public class SignInActivity extends AppCompatActivity implements GoogleApiClient
             finish();
             startActivity(new Intent(SignInActivity.this,MainActivity.class));
 
-        }else{
-
         }
-
     }
 }

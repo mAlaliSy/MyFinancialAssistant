@@ -174,7 +174,7 @@
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_create_black_24dp"
+                    app:srcCompat="@drawable/ic_create_black_24dp"
                     android:id="@+id/ibtnEditHistoryRecord"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
@@ -184,7 +184,7 @@
                 <ImageButton
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_delete_black_24dp"
+                    app:srcCompat="@drawable/ic_delete_black_24dp"
                     android:id="@+id/ibtnDeleteHistoryRecord"
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"

@@ -16,14 +16,21 @@ public class FinancialContract {
     public static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
 
 
+
     public static class CategoryEntry implements BaseColumns {
         public static final String CATEGORIES_TABLE = "categories";
         public static final String ID = "_id";
         public static final String NAME = "name";
+        public static final String FIREBASE_REFERENCE = "firebase_reference";
+        public static final String SAVED_IN_FIREBASE = "saved_in_firebase";
+        public static final String UPDATE_IN_FIREBASE = "update_in_firebase";
+
 
         public static final int ID_INDEX = 0;
         public static final int NAME_INDEX = 1;
-
+        public static final int FIREBASE_REFERENCE_INDEX = 2;
+        public static final int SAVED_IN_FIREBASE_INDEX = 3;
+        public static final int UPDATED_IN_FIREBASE = 4;
 
         public static final Uri CONTENT_URI = BASE_URI.buildUpon().appendPath(CATEGORIES_TABLE).build();
 
@@ -42,9 +49,15 @@ public class FinancialContract {
         public static final String SOURCES_TABLE = "sources";
         public static final String ID = "_id";
         public static final String NAME = "name";
+        public static final String FIREBASE_REFERENCE = "firebase_reference";
+        public static final String SAVED_IN_FIREBASE = "saved_in_firebase";
+        public static final String UPDATE_IN_FIREBASE = "update_in_firebase";
 
         public static final int ID_INDEX = 0;
         public static final int NAME_INDEX = 1;
+        public static final int FIREBASE_REFERENCE_INDEX = 2;
+        public static final int SAVED_IN_FIREBASE_INDEX = 3;
+        public static final int UPDATED_IN_FIREBASE = 4;
 
 
         public static final Uri CONTENT_URI = BASE_URI.buildUpon().appendPath(SOURCES_TABLE).build();
@@ -102,6 +115,26 @@ public class FinancialContract {
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + AUTHORITY + "/" + TRANSACTIONS_TABLE;
 
     }
+
+
+
+
+    public static class DeleteFromFirebaseEntry implements BaseColumns {
+        public static final String DELETE_FROM_FIREBASE_TABLE = "delete_from_firebase";
+        public static final String REFERENCE = "reference";
+        public static final String TYPE = "type";
+
+
+        public static final int REF_INDEX = 1;
+        public static final int TYPE_INDEX = 2;
+
+        public static final  Uri CONTENT_URI = BASE_URI.buildUpon().appendPath(DELETE_FROM_FIREBASE_TABLE).build();
+        public static Uri buildDeleteFromFirebaseIdUri (long id){
+            return ContentUris.withAppendedId(CONTENT_URI,id);
+        }
+
+    }
+
 
     public static long getIdFromUri(Uri uri){
         return ContentUris.parseId(uri);

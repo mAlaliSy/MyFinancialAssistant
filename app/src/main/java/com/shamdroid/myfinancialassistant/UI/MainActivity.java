@@ -8,13 +8,22 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,8 +40,10 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.shamdroid.myfinancialassistant.Models.CategorySource;
 import com.shamdroid.myfinancialassistant.Models.Transaction;
 import com.shamdroid.myfinancialassistant.R;
+import com.shamdroid.myfinancialassistant.Utils.Utils;
 import com.shamdroid.myfinancialassistant.data.FinancialContract;
 import com.shamdroid.myfinancialassistant.data.SharedPreferencesManager;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,8 +52,12 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
+
+    @BindView(R.id.drawerLayout)
+    DrawerLayout mDraweLayout;
 
     @BindView(R.id.floatingActionButton)
     FloatingActionButton fab;
@@ -96,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView txtAllInMonth;
 
 
+
     public final int LOADER_ID = 100;
     public final int CATEGORIES_LOADER_ID = 101;
 
@@ -109,11 +125,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String thisMonth;
 
 
-    float balance;
+
     float monthExpenses;
     float monthIncomes;
 
     ArrayList<Transaction> transactions;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +143,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         ButterKnife.bind(this);
+
+
+        Util.initNavigationView(this);
+
+
 
 
         thisMonth = new SimpleDateFormat("MMMM", Locale.getDefault()).format(Calendar.getInstance().getTime());
@@ -162,22 +184,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pieChart.setDrawEntryLabels(false);
 
 
+
+
         Legend legend = pieChart.getLegend();
         legend.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
         legend.setXEntrySpace(7);
         legend.setYEntrySpace(5);
 
 
-
-        startActivity(new Intent(MainActivity.this,HistoryActivity.class));
-
     }
-
 
     @Override
     protected void onResume() {
         super.onResume();
         updateData();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(mDraweLayout.isDrawerOpen(GravityCompat.START))
+            mDraweLayout.closeDrawer(GravityCompat.START);
+        else
+            super.onBackPressed();
+
     }
 
     void updateData() {

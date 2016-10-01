@@ -20,4 +20,9 @@
 
     <dimen name="bottomSpace">56dp</dimen>
     <dimen name="lineSeparatorHeight">0.5dp</dimen>
+
+    <dimen name="fab_margin">32dp</dimen>
+
+    <dimen name="header_height">190dp</dimen>
+    <dimen name="profile_image_dimen">64dp</dimen>
 </resources>
