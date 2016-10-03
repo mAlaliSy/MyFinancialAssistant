@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class FirebaseUtils {
 
     public static final String USERS_CHILD = "users";
+    public static final String ALREADY_LOGGED_IN = "already_logged_in";
 
     public static DatabaseReference getUserReference (Context context){
 
@@ -82,5 +83,23 @@ public class FirebaseUtils {
     }
 
 
+
+
+    public static DatabaseReference getBalanceRef (Context context){
+        return getUserReference(context).child(SharedPreferencesManager.BALANCE_KEY);
+    }
+
+    public static void setBalanceValue(Context context,float balance){
+        DatabaseReference databaseReference = getBalanceRef(context);
+        databaseReference.setValue(balance);
+    }
+
+
+    public static DatabaseReference getAlreadyLoggedInRef (Context context){
+
+        DatabaseReference databaseReference = getUserReference(context);
+
+        return databaseReference.child(ALREADY_LOGGED_IN);
+    }
 
 }

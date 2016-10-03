@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.shamdroid.myfinancialassistant.Models.CategorySource;
 import com.shamdroid.myfinancialassistant.R;
 
 /**
@@ -62,13 +63,6 @@ public class FinancialSQLiteHelper extends SQLiteOpenHelper {
                 + FinancialContract.DeleteFromFirebaseEntry.TYPE + " TEXT NOT NULL );";
         sqLiteDatabase.execSQL(QUERY);
 
-        String[] defaultCategories = context.getResources().getStringArray(R.array.defaultCategories);
-
-        for (int i = 0; i < defaultCategories.length; i++) {
-            ContentValues values = new ContentValues();
-            values.put(FinancialContract.CategoryEntry.NAME, defaultCategories[i]);
-            sqLiteDatabase.insert(FinancialContract.CategoryEntry.CATEGORIES_TABLE, null, values);
-        }
 
     }
 
@@ -76,4 +70,57 @@ public class FinancialSQLiteHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
+
+
+    public void initTables(){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+
+
+
+        String[] defaultCategories = context.getResources().getStringArray(R.array.defaultCategories);
+
+        for (int i = 0; i < defaultCategories.length; i++) {
+
+            CategorySource category = new CategorySource(-1,defaultCategories[i]);
+            category.setType(CategorySource.TYPE_CAT);
+
+
+            String ref = category.saveNewToFirebase(context);
+
+            category.setFirebaseReference(ref);
+
+            ContentValues values = category.toContentValues();
+
+            int id = (int) sqLiteDatabase.insert(FinancialContract.CategoryEntry.CATEGORIES_TABLE, null, values);
+
+            category.setId(id);
+
+            category.updateFirebase(context);
+
+        }
+
+        String[] defaultSources = context.getResources().getStringArray(R.array.defaultSources);
+
+        for (int i = 0; i < defaultSources.length; i++) {
+
+            CategorySource src = new CategorySource(-1,defaultSources[i]);
+            src.setType(CategorySource.TYPE_SRC);
+
+
+            String ref = src.saveNewToFirebase(context);
+
+            src.setFirebaseReference(ref);
+
+            ContentValues values = src.toContentValues();
+
+            int id = (int) sqLiteDatabase.insert(FinancialContract.SourceEntry.SOURCES_TABLE, null, values);
+
+            src.setId(id);
+
+            src.updateFirebase(context);
+
+        }
+
+    }
+
 }

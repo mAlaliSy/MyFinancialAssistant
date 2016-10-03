@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ import com.shamdroid.myfinancialassistant.R;
 import com.shamdroid.myfinancialassistant.Utils.Utils;
 import com.shamdroid.myfinancialassistant.data.FinancialContract;
 import com.shamdroid.myfinancialassistant.data.SharedPreferencesManager;
+import com.shamdroid.myfinancialassistant.widget.AppWidget;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -285,7 +285,7 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 viewHolder.txtAmount.setTextColor(redColor);
 
                 if (categories != null) {
-                    String category = getCategoryNameFromId(transaction.getCategorySourceId());
+                    String category = getCategoryNameFromId(transaction.getSource_category());
                     if (category != null) {
                         viewHolder.txtCatSrcValue.setText(category);
                     }
@@ -300,7 +300,7 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 viewHolder.txtAmount.setTextColor(greenColor);
 
                 if (sources != null) {
-                    String source = getSourceNameFromId(transaction.getCategorySourceId());
+                    String source = getSourceNameFromId(transaction.getSource_category());
                     viewHolder.txtCatSrcValue.setText(source);
                 }
 
@@ -389,6 +389,8 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             SharedPreferencesManager.setBalance(context, balance);
 
         }
+
+        context.sendBroadcast(new Intent(context, AppWidget.class));
 
         loadData(REFRESH_DATA_LOADER);
 

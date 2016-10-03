@@ -22,7 +22,7 @@ public class CategorySource {
     public static final int TYPE_SRC = 0;
     public static final int TYPE_CAT = 1;
 
-    int id;
+    int _id;
     String name;
     int type;
 
@@ -35,8 +35,11 @@ public class CategorySource {
         return firebaseReference;
     }
 
+    public CategorySource() {
+    }
+
     public CategorySource(int id, String name, int type, String firebaseReference, boolean savedToFirebase, boolean updatedInFirebase) {
-        this.id = id;
+        this._id = id;
         this.name = name;
         this.type = type;
         this.firebaseReference = firebaseReference;
@@ -57,7 +60,7 @@ public class CategorySource {
     }
 
     public CategorySource(int id, String name) {
-        this.id = id;
+        this._id = id;
         this.name = name;
     }
 
@@ -67,10 +70,10 @@ public class CategorySource {
         Map<String, Object> map = new HashMap<>();
 
         if (type == TYPE_CAT) {
-            map.put(FinancialContract.CategoryEntry.ID, id);
+            map.put(FinancialContract.CategoryEntry.ID, _id);
             map.put(FinancialContract.CategoryEntry.NAME, name);
         } else {
-            map.put(FinancialContract.SourceEntry.ID, id);
+            map.put(FinancialContract.SourceEntry.ID, _id);
             map.put(FinancialContract.SourceEntry.NAME, name);
         }
 
@@ -139,12 +142,12 @@ public class CategorySource {
             contentValues.put(FinancialContract.CategoryEntry.NAME,name);
             contentValues.put(FinancialContract.CategoryEntry.FIREBASE_REFERENCE,firebaseReference);
             contentValues.put(FinancialContract.CategoryEntry.SAVED_IN_FIREBASE,savedToFirebase?1:0);
-            contentValues.put(FinancialContract.CategoryEntry.UPDATE_IN_FIREBASE,updatedInFirebase);
+            contentValues.put(FinancialContract.CategoryEntry.UPDATE_IN_FIREBASE,updatedInFirebase?1:0);
         }else{
             contentValues.put(FinancialContract.SourceEntry.NAME,name);
             contentValues.put(FinancialContract.SourceEntry.FIREBASE_REFERENCE,firebaseReference);
             contentValues.put(FinancialContract.SourceEntry.SAVED_IN_FIREBASE,savedToFirebase?1:0);
-            contentValues.put(FinancialContract.SourceEntry.UPDATE_IN_FIREBASE,updatedInFirebase);
+            contentValues.put(FinancialContract.SourceEntry.UPDATE_IN_FIREBASE,updatedInFirebase?1:0);
 
         }
         return contentValues;
@@ -192,11 +195,11 @@ public class CategorySource {
     }
 
     public void setId(int id) {
-        this.id = id;
+        this._id = id;
     }
 
     public int getId() {
-        return id;
+        return _id;
     }
 
     public String getName() {

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -17,19 +16,15 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by mohammad on 20/09/16.
- */
-
 public class Transaction implements Parcelable {
 
 
     public final static int INCOME_TYPE = 0;
     public final static int EXPENSE_TYPE = 1;
 
-    int id;
+    int _id;
     int type;
-    int categorySourceId;
+    int source_category;
     float amount;
     String note;
     int day, month, year;
@@ -40,10 +35,14 @@ public class Transaction implements Parcelable {
     boolean updatedInFirebase = true;
 
 
+    public Transaction(){
+
+    }
+
     public Transaction(int id, int type, int categorySourceId, float amount, String note, int day, int month, int year, String firebaseReference, boolean savedToFirebase, boolean updatedInFirebase) {
-        this.id = id;
+        this._id = id;
         this.type = type;
-        this.categorySourceId = categorySourceId;
+        this.source_category = categorySourceId;
         this.amount = amount;
         this.note = note;
         this.day = day;
@@ -56,9 +55,9 @@ public class Transaction implements Parcelable {
 
 
     public Transaction(int id, int type, int categorySourceId, float amount, String note, int day, int month, int year) {
-        this.id = id;
+        this._id = id;
         this.type = type;
-        this.categorySourceId = categorySourceId;
+        this.source_category = categorySourceId;
         this.amount = amount;
         this.note = note;
         this.day = day;
@@ -70,9 +69,9 @@ public class Transaction implements Parcelable {
 
         Map<String, Object> map = new HashMap<>();
 
-        map.put(FinancialContract.TransactionEntry.ID, id);
+        map.put(FinancialContract.TransactionEntry.ID, _id);
         map.put(FinancialContract.TransactionEntry.TYPE, type);
-        map.put(FinancialContract.TransactionEntry.SOURCE_CATEGORY, categorySourceId);
+        map.put(FinancialContract.TransactionEntry.SOURCE_CATEGORY, source_category);
         map.put(FinancialContract.TransactionEntry.AMOUNT, amount);
         map.put(FinancialContract.TransactionEntry.NOTE, note);
         map.put(FinancialContract.TransactionEntry.DAY, day);
@@ -151,9 +150,9 @@ public class Transaction implements Parcelable {
     }
 
     protected Transaction(Parcel in) {
-        id = in.readInt();
+        _id = in.readInt();
         type = in.readInt();
-        categorySourceId = in.readInt();
+        source_category = in.readInt();
         amount = in.readFloat();
         note = in.readString();
         day = in.readInt();
@@ -166,9 +165,9 @@ public class Transaction implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeInt(_id);
         dest.writeInt(type);
-        dest.writeInt(categorySourceId);
+        dest.writeInt(source_category);
         dest.writeFloat(amount);
         dest.writeString(note);
         dest.writeInt(day);
@@ -224,7 +223,7 @@ public class Transaction implements Parcelable {
         ContentValues contentValues = new ContentValues();
         contentValues.put(FinancialContract.TransactionEntry.AMOUNT, amount);
         contentValues.put(FinancialContract.TransactionEntry.TYPE, type);
-        contentValues.put(FinancialContract.TransactionEntry.SOURCE_CATEGORY, categorySourceId);
+        contentValues.put(FinancialContract.TransactionEntry.SOURCE_CATEGORY, source_category);
         contentValues.put(FinancialContract.TransactionEntry.NOTE, note);
         contentValues.put(FinancialContract.TransactionEntry.DAY, day);
         contentValues.put(FinancialContract.TransactionEntry.MONTH, month);
@@ -245,15 +244,15 @@ public class Transaction implements Parcelable {
     }
 
     public int getId() {
-        return id;
+        return _id;
     }
 
     public int getType() {
         return type;
     }
 
-    public int getCategorySourceId() {
-        return categorySourceId;
+    public int getSource_category() {
+        return source_category;
     }
 
     public float getAmount() {
@@ -274,15 +273,15 @@ public class Transaction implements Parcelable {
 
 
     public void setId(int id) {
-        this.id = id;
+        this._id = id;
     }
 
     public void setType(int type) {
         this.type = type;
     }
 
-    public void setCategorySourceId(int categorySourceId) {
-        this.categorySourceId = categorySourceId;
+    public void setSource_category(int source_category) {
+        this.source_category = source_category;
     }
 
     public void setAmount(float amount) {

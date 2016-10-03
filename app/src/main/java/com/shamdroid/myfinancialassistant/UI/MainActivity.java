@@ -8,22 +8,14 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,10 +32,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.shamdroid.myfinancialassistant.Models.CategorySource;
 import com.shamdroid.myfinancialassistant.Models.Transaction;
 import com.shamdroid.myfinancialassistant.R;
-import com.shamdroid.myfinancialassistant.Utils.Utils;
 import com.shamdroid.myfinancialassistant.data.FinancialContract;
 import com.shamdroid.myfinancialassistant.data.SharedPreferencesManager;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,7 +42,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -377,7 +366,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (transaction.getType() == Transaction.EXPENSE_TYPE) {
 
-                CategorySource category = getCategoryById(transaction.getCategorySourceId());
+                CategorySource category = getCategoryById(transaction.getSource_category());
 
                 fetchData(category.getName(), transaction.getAmount());
 

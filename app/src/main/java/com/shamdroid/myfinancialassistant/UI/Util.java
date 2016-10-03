@@ -31,15 +31,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Util {
 
-    public static int getColor(Context context, int res){
+    public static int getColor(Context context, int res) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return context.getResources().getColor(res,context.getTheme());
-        }else{
+            return context.getResources().getColor(res, context.getTheme());
+        } else {
             return context.getResources().getColor(res);
         }
     }
-
 
 
     public static void initNavigationView(final AppCompatActivity activity) {
@@ -55,22 +54,21 @@ public class Util {
         mDrawerToggle.syncState();
 
 
-
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
 
                     case R.id.home:
 
                         break;
                     case R.id.history:
-                        Intent intent = new Intent(activity,HistoryActivity.class);
+                        Intent intent = new Intent(activity, HistoryActivity.class);
                         activity.startActivity(intent);
                         break;
                     case R.id.manage_cats:
-                        Intent intent1 = new Intent(activity,EditCategoriesActivity.class);
+                        Intent intent1 = new Intent(activity, EditCategoriesActivity.class);
                         activity.startActivity(intent1);
                         break;
 
@@ -78,9 +76,8 @@ public class Util {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
 
-                if(!(activity instanceof MainActivity))
+                if (!(activity instanceof MainActivity))
                     activity.finish();
-
 
 
                 return true;
@@ -122,12 +119,13 @@ public class Util {
         txtAccountName.setText(SharedPreferencesManager.getName(activity));
 
 
-        Picasso.with(activity).load(SharedPreferencesManager.getProfileImage(activity)).into(imgProfile);
+        Picasso.with(activity).load(SharedPreferencesManager.getProfileImage(activity))
+                .placeholder(R.drawable.account)
+                .error(R.drawable.account)
+                .into(imgProfile);
 
 
     }
-
-
 
 
 }

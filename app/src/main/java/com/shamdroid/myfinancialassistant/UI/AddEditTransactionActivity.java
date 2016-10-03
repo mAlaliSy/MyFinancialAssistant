@@ -11,7 +11,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,20 +22,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.shamdroid.myfinancialassistant.Models.CategorySource;
 import com.shamdroid.myfinancialassistant.Models.Transaction;
 import com.shamdroid.myfinancialassistant.R;
 import com.shamdroid.myfinancialassistant.Utils.Utils;
 import com.shamdroid.myfinancialassistant.data.FinancialContract;
-import com.shamdroid.myfinancialassistant.data.FirebaseUtils;
 import com.shamdroid.myfinancialassistant.data.SharedPreferencesManager;
+import com.shamdroid.myfinancialassistant.widget.AppWidget;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Scanner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -219,7 +215,7 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
         spinCat.setAdapter(arrayAdapter);
 
         if (isEditing)
-            spinCat.setSelection(getCatSrcPosFromId(currentTransaction.getCategorySourceId()));
+            spinCat.setSelection(getCatSrcPosFromId(currentTransaction.getSource_category()));
 
 
         // If there is saved instance state for selected categorySource restore it
@@ -410,7 +406,7 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
                 } else {
 
                     currentTransaction.setAmount(amount);
-                    currentTransaction.setCategorySourceId(catId);
+                    currentTransaction.setSource_category(catId);
                     currentTransaction.setNote(note);
                     currentTransaction.setDay(day);
                     currentTransaction.setMonth(month);
@@ -425,6 +421,9 @@ public class AddEditTransactionActivity extends AppCompatActivity implements Loa
 
                     getContentResolver().update(FinancialContract.TransactionEntry.buildTransactionIdUri(currentTransaction.getId()), currentTransaction.toContentValues(), null, null);
                 }
+
+
+                sendBroadcast(new Intent(AddEditTransactionActivity.this,AppWidget.class));
 
                 finish();
 

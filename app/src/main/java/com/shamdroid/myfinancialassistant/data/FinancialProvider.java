@@ -168,7 +168,7 @@ public class FinancialProvider extends ContentProvider {
                 if (opId > -1) {
                     returedUri = FinancialContract.TransactionEntry.buildTransactionIdUri(opId);
                 } else {
-                    throw new SQLiteException("Failed to insert into table : " + FinancialContract.CategoryEntry.CATEGORIES_TABLE);
+                    throw new SQLiteException("Failed to insert into table : " + FinancialContract.TransactionEntry.TRANSACTIONS_TABLE);
                 }
                 break;
 

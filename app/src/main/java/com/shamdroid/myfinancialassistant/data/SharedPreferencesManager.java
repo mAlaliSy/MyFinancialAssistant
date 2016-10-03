@@ -59,6 +59,7 @@ public class SharedPreferencesManager {
 
     public static void setBalance(Context context, float balance) {
         getEditor(context).putFloat(BALANCE_KEY, balance).apply();
+        FirebaseUtils.setBalanceValue(context,balance);
     }
 
     public static float getBalance(Context context) {

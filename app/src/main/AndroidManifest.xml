@@ -26,7 +26,6 @@
         <activity
             android:name=".UI.HistoryActivity"
             android:label="@string/history"
-
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".UI.SignInActivity"
@@ -48,9 +47,22 @@
 
         <activity
             android:name=".UI.EditCategoriesActivity"
-            android:theme="@style/NoActionBar"
             android:label="@string/manageCategories"
-            ></activity>
+            android:theme="@style/NoActionBar" />
+
+        <receiver android:name=".widget.AppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".widget.UpdateWidgetService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
