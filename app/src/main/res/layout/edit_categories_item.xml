@@ -24,7 +24,9 @@
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackground"
         android:padding="@dimen/textTitlePadding"
-        android:tint="@color/blue" />
+        android:tint="@color/blue"
+
+        android:contentDescription="@string/edit"/>
 
     <ImageButton
         android:layout_width="0dp"
@@ -34,6 +36,7 @@
         android:layout_weight="1"
         android:background="?android:attr/selectableItemBackground"
         android:padding="@dimen/textTitlePadding"
-        android:tint="@color/red" />
+        android:tint="@color/red"
+        android:contentDescription="@string/delete"/>
 
 </LinearLayout>

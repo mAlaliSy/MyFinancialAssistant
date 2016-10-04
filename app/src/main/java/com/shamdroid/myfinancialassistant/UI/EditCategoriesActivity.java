@@ -41,7 +41,8 @@ public class EditCategoriesActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
+        overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+
 
         CategoriesPagerAdapter adapter = new CategoriesPagerAdapter(getSupportFragmentManager());
 

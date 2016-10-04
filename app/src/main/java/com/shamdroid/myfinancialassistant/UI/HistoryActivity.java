@@ -44,6 +44,10 @@ public class HistoryActivity extends AppCompatActivity implements HistoryRecycle
 
         ButterKnife.bind(this);
 
+        overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+
+
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(linearLayoutManager);

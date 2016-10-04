@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "728303362423",
+    "firebase_url": "https://my-financial-assistant.firebaseio.com",
+    "project_id": "my-financial-assistant",
+    "storage_bucket": "my-financial-assistant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728303362423:android:de44c52cf3f5bc97",
+        "android_client_info": {
+          "package_name": "com.shamdroid.myfinancialassistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728303362423-l9tecphf5bbvi4s6n7o6bp9qh2otle2c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIBH5i3tmCv-lNnETXT7MDwWLUAp_lTiQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

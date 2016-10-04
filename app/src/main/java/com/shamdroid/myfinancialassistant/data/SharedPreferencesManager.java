@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.shamdroid.myfinancialassistant.UI.MainActivity;
+
 /**
  * Created by mohammad on 18/09/16.
  */
@@ -17,6 +19,7 @@ public class SharedPreferencesManager {
     public static final String BALANCE_KEY = "balance";
     public static final String FIREBASE_USER_ID = "firebase_user_id";
     public static final String PROFILE_IMAGE = "profile_image";
+    public static final String FIRST_TIME_KEY = "first_time";
 
 
     private static SharedPreferences sharedPreferences;
@@ -83,5 +86,6 @@ public class SharedPreferencesManager {
     public static void setProfileImage(Context context, String url){
         getEditor(context).putString(PROFILE_IMAGE,url).apply();
     }
+
 
 }

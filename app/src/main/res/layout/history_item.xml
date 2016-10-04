@@ -179,6 +179,7 @@
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
                     android:padding="@dimen/textTitlePadding"
+                    android:contentDescription="@string/edit"
                     android:tint="@color/blue" />
 
                 <ImageButton
@@ -189,6 +190,7 @@
                     android:layout_weight="1"
                     android:background="?android:attr/selectableItemBackground"
                     android:padding="@dimen/textTitlePadding"
+                    android:contentDescription="@string/delete"
                     android:tint="@color/red" />
             </LinearLayout>
 

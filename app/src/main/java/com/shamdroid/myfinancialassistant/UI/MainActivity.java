@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Util.initNavigationView(this);
 
+        overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
 
 
 
@@ -249,6 +250,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         intent.putExtra(AddEditTransactionActivity.TYPE_KEY,
                                 i == 0 ? Transaction.EXPENSE_TYPE : Transaction.INCOME_TYPE);
+
 
                         intent.putExtra(AddEditTransactionActivity.IS_EDITING, false);
                         startActivity(intent);

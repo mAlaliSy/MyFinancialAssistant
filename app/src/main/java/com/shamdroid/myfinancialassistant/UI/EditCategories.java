@@ -85,6 +85,8 @@ public class EditCategories extends Fragment implements LoaderManager.LoaderCall
         });
 
 
+        fab.setContentDescription(getString(type == CategorySource.TYPE_SRC ? R.string.add_source : R.string.add_category));
+
         getLoaderManager().initLoader(LOADER_ID, null, this);
 
 

@@ -6,8 +6,8 @@
     android:id="@+id/activity_add_income"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.shamdroid.myfinancialassistant.UI.AddEditTransactionActivity">
+    tools:context="com.shamdroid.myfinancialassistant.UI.AddEditTransactionActivity"
+    android:orientation="vertical">
 
 
     <ScrollView
@@ -120,7 +120,8 @@
                             android:layout_weight="1"
                             android:background="@android:color/transparent"
                             app:srcCompat="@drawable/ic_event_black_24dp"
-                            android:tint="@color/colorAccent" />
+                            android:tint="@color/colorAccent"
+                            android:contentDescription="@string/selectDate"/>
 
                     </LinearLayout>
 

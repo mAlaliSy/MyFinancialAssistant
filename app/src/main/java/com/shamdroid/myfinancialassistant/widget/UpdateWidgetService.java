@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.widget.RemoteViews;
 
 import com.shamdroid.myfinancialassistant.Models.Transaction;
@@ -33,9 +34,9 @@ public class UpdateWidgetService extends IntentService {
 
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
 
-        int appIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(this,AppWidget.class));
+        int appIds[] = appWidgetManager.getAppWidgetIds(new ComponentName(this, AppWidget.class));
 
-        for(int appId : appIds) {
+        for (int appId : appIds) {
 
             float balance = SharedPreferencesManager.getBalance(this);
 
@@ -64,18 +65,21 @@ public class UpdateWidgetService extends IntentService {
             RemoteViews remoteViews = new RemoteViews(getPackageName(), R.layout.app_widget);
 
 
+            String dollarSign = getString(R.string.dollarSign);
+
             float monthNet = income - expenses;
-            remoteViews.setTextViewText(R.id.txtWidgetBalance, balance + "");
-            remoteViews.setTextViewText(R.id.txtWidgetMonthExpensesValue, expenses + "");
-            remoteViews.setTextViewText(R.id.txtWidgetMonthIncomeValue, income + "");
-            remoteViews.setTextViewText(R.id.txtWidgetMonthNetValue, monthNet + "");
+            remoteViews.setTextViewText(R.id.txtWidgetBalance, balance + dollarSign);
+            remoteViews.setTextViewText(R.id.txtWidgetMonthExpensesValue, expenses + dollarSign);
+            remoteViews.setTextViewText(R.id.txtWidgetMonthIncomeValue, income + dollarSign);
+            remoteViews.setTextViewText(R.id.txtWidgetMonthNetValue, monthNet + dollarSign);
 
-            if(monthNet<0){
-                remoteViews.setTextColor(R.id.txtWidgetMonthNetValue, Util.getColor(this,R.color.red));
-            }else{
-                remoteViews.setTextColor(R.id.txtWidgetMonthNetValue, Util.getColor(this,R.color.green));
-            }
+            int green = Util.getColor(this, R.color.green);
+            int red = Util.getColor(this, R.color.red);
 
+
+            remoteViews.setTextColor(R.id.txtWidgetMonthNetValue, monthNet>=0?green:red);
+
+            remoteViews.setTextColor(R.id.txtWidgetBalance, balance >= 0 ? green : red);
 
 
             String monthName = new SimpleDateFormat("MMMM").format(Calendar.getInstance().getTime());
@@ -90,7 +94,6 @@ public class UpdateWidgetService extends IntentService {
             remoteViews.setTextViewText(R.id.txtWidgetMonthIncome, monthsIncome);
 
 
-
             Intent addIncome = new Intent(this, AddEditTransactionActivity.class);
 
             addIncome.putExtra(AddEditTransactionActivity.IS_EDITING, false);
@@ -103,25 +106,22 @@ public class UpdateWidgetService extends IntentService {
             remoteViews.setOnClickPendingIntent(R.id.btnWidgetAddIncome, addIncomePendingIntent);
 
 
-
             Intent addExpense = new Intent(this, AddEditTransactionActivity.class);
             addExpense.putExtra(AddEditTransactionActivity.TYPE_KEY, Transaction.EXPENSE_TYPE);
 
             addExpense.putExtra(AddEditTransactionActivity.IS_EDITING, false);
 
-            PendingIntent addExpensePendingIntent = PendingIntent.getActivity(this, 0, addExpense, 0);
+            PendingIntent addExpensePendingIntent = PendingIntent.getActivity(this, 1, addExpense, 0);
 
             remoteViews.setOnClickPendingIntent(R.id.btnWidgetAddExpense, addExpensePendingIntent);
 
 
-
-
             Intent main = new Intent(this, MainActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this,0,main,0);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, main, 0);
 
-            remoteViews.setOnClickPendingIntent(R.id.appWidget,pendingIntent);
+            remoteViews.setOnClickPendingIntent(R.id.appWidget, pendingIntent);
 
-            appWidgetManager.updateAppWidget(appId,remoteViews);
+            appWidgetManager.updateAppWidget(appId, remoteViews);
 
         }
     }
